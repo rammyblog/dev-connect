@@ -1,0 +1,104 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .utils import get_gravatar_image_url
+
+
+class Profile(models.Model):
+
+    Developer = 'DEV'
+    Junior_Developer = 'JNR_DEV'
+    Senior_Developer = 'SNR_DEV'
+    Manager = 'MAN'
+    Student_learning = 'STU_LEA'
+    Instructor_teacher = 'INS_TEA'
+    Intern = 'INT'
+    Other = 'OTH'
+
+    PROFESSIONAL_STATUS_CHOICES = [
+        (Developer, 'Developer'),
+        (Junior_Developer, 'Junior Developer'),
+        (Senior_Developer, 'Senior Developer'),
+        (Intern, 'Intern'),
+        (Manager, 'Manager'),
+        (Student_learning, 'Student or Learning'),
+        (Instructor_teacher, 'Instructor or Teacher'),
+        (Other, 'Other'),
+
+
+    ]
+    user = models.OneToOneField(
+        User, related_name='profile', on_delete=models.CASCADE)
+    bio = models.CharField(max_length=5000, null=True, blank=True)
+    skills = ArrayField(models.CharField(max_length=20), null=True, blank=True)
+    facebook_link = models.URLField(null=True, blank=True)
+    linkedin_link = models.URLField(null=True, blank=True)
+    twitter_link = models.URLField(null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+    instagram_link = models.URLField(null=True, blank=True)
+    github_link = models.URLField(null=True, blank=True)
+    professional_status = models.CharField(
+        max_length=7,
+        choices=PROFESSIONAL_STATUS_CHOICES,
+        default=Other,
+        null=True, blank=True
+    )
+    image_url = models.URLField(null=True, blank=True)
+
+    location = models.CharField(max_length=500, null=True, blank=True)
+
+    class Meta:
+        verbose_name = ("Profile")
+        verbose_name_plural = ("Profiles")
+
+    def __str__(self):
+        return self.user.username
+
+    def get_absolute_url(self):
+        return reverse("Profile_detail", kwargs={"pk": self.pk})
+
+
+class Experience(models.Model):
+    user = models.ForeignKey(
+        User, related_name='user_experience', on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=400)
+    from_date = models.DateField(auto_now=False, auto_now_add=False)
+    to_date = models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    is_current = models.BooleanField()
+    desc = models.CharField(max_length=5000)
+
+    def __str__(self):
+        return self.company_name
+
+    class Meta:
+        verbose_name = 'Experience'
+        verbose_name_plural = 'Experiences'
+
+
+class Education(models.Model):
+    user = models.ForeignKey(
+        User, related_name='user_education', on_delete=models.CASCADE)
+    sch_name = models.CharField(max_length=400)
+    from_date = models.DateField(auto_now=False, auto_now_add=False)
+    to_date = models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True)
+    is_current = models.BooleanField()
+    desc = models.CharField(max_length=5000)
+
+    def __str__(self):
+        return self.sch_name
+
+    class Meta:
+        verbose_name = 'Experience'
+        verbose_name_plural = 'Experiences'
+
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        image_url = get_gravatar_image_url(instance.email)
+        Profile.objects.create(user=instance, image_url=image_url)
+    instance.profile.save()
