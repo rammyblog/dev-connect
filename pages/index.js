@@ -1,8 +1,11 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import Link from 'next/link'
-import { startClock, serverRenderClock } from '../actions'
-import Examples from '../components/examples'
+import React, { PureComponent } from "react"
+import { connect } from "react-redux"
+import Link from "next/link"
+import { startClock, serverRenderClock, loadProfiles } from "../actions"
+import Examples from "../components/examples"
+import App from "../components/App"
+import Navbar from "../components/Navbar"
+import Home from "../components/Home"
 
 class Index extends PureComponent {
   static getInitialProps({ store, req }) {
@@ -13,6 +16,7 @@ class Index extends PureComponent {
 
   componentDidMount() {
     this.timer = this.props.startClock()
+    this.props.loadProfiles()
   }
 
   componentWillUnmount() {
@@ -22,10 +26,7 @@ class Index extends PureComponent {
   render() {
     return (
       <>
-        <Examples />
-        <Link href="/show-redux-state">
-          <a>Click to see current Redux State</a>
-        </Link>
+        <Home />
       </>
     )
   }
@@ -33,6 +34,7 @@ class Index extends PureComponent {
 
 const mapDispatchToProps = {
   startClock,
+  loadProfiles,
 }
 
 export default connect(null, mapDispatchToProps)(Index)

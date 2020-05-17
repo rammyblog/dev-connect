@@ -1,0 +1,3 @@
+// API ERROR
+
+export const API_LOAD_ERROR = "API_LOAD_ERROR"
