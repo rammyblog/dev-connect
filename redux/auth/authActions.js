@@ -1,6 +1,7 @@
 import { loginUser, registerUser } from "../../api/authApi"
 import * as types from "./authTypes"
 import { apiCallError } from "../apiStatus/apiActions"
+import Router from "next/router"
 
 export const authStart = () => {
   return { type: types.AUTH_START }
@@ -28,11 +29,13 @@ export const authLogin = (email, password) => {
         localStorage.setItem("expirationDate", expirationDate)
         localStorage.setItem("email", email)
         dispatch(authSuccess(token, email))
+        Router.push("/profile")
       })
       .catch((error) => {
-        console.log(error)
+        const error_msg = error.error_msg || error.message
+
         dispatch(apiCallError(error))
-        dispatch(authFail(true, error.error_msg))
+        dispatch(authFail(true, error_msg))
         // throw error
       })
   }
@@ -57,6 +60,7 @@ export const authRegister = (
         localStorage.setItem("expirationDate", expirationDate)
         localStorage.setItem("email", email)
         dispatch(authSuccess(token, email))
+        Router.push("/profile")
       })
       .catch((error) => {
         console.log(error)

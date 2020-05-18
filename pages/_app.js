@@ -11,7 +11,9 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <Navbar />
-        <Component {...pageProps} />
+        <div className="container">
+          <Component {...pageProps} />
+        </div>
       </Provider>
     )
   }

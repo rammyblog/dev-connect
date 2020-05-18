@@ -1,19 +1,27 @@
 import { getProfile } from "../../api/profileApi"
+import * as types from "./profileTypes"
+
+export function loadProfileStart() {
+  return { type: types.LOAD_PROFILE_START }
+}
 
 export function loadProfileSuccess(profiles) {
-  return { type: types.LOAD_PROFILE, profiles }
+  return { type: types.LOAD_PROFILES, payload: profiles }
 }
 
 export function loadProfiles() {
   return function (dispatch) {
+    // dispatch(loadProfileStart())
+    console.log("calliing")
+
     return getProfile()
       .then((profiles) => {
-        dispatch(loadProfileSuccess(profiles))
+        console.log(profiles.data)
+
+        dispatch(loadProfileSuccess(profiles.data))
       })
       .catch((error) => {
-        console.log("helloe")
-
-        dispatch(apiCallError(error))
+        // dispatch(apiCallError(error))
         throw error
       })
   }

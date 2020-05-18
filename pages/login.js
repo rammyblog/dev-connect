@@ -1,11 +1,7 @@
 import LoginForm from "../components/LoginForm"
 
 function Login() {
-  return (
-    <>
-      <LoginForm />
-    </>
-  )
+  return <LoginForm />
 }
 
 export default Login

@@ -9,7 +9,9 @@ export const profileReducer = (
   { type, payload }
 ) => {
   switch (type) {
-    case types.LOAD_PROFILE:
+    case types.LOAD_PROFILE_START:
+      return { ...state, loading: true }
+    case types.LOAD_PROFILES:
       return payload
     default:
       return state

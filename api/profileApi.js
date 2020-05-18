@@ -3,7 +3,14 @@ import axios from "axios"
 const baseUrl = process.env.BASE_URL + "api/profile/"
 
 export function getProfile() {
-  return axios.get(baseUrl).then(handleResponse).catch(handleError)
+  return axios
+    .get(baseUrl, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(handleResponse)
+    .catch(handleError)
 }
 
 // export function saveCourse(course) {
