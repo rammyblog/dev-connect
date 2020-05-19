@@ -8,14 +8,14 @@ from .utils import get_gravatar_image_url
 
 class Profile(models.Model):
 
-    Developer = 'DEV'
-    Junior_Developer = 'JNR_DEV'
-    Senior_Developer = 'SNR_DEV'
-    Manager = 'MAN'
-    Student_learning = 'STU_LEA'
-    Instructor_teacher = 'INS_TEA'
-    Intern = 'INT'
-    Other = 'OTH'
+    Developer = 'Developer'
+    Junior_Developer = 'Junior Developer'
+    Senior_Developer = 'Senior Developer'
+    Manager = 'Manager'
+    Student_learning = 'Student Or Learning'
+    Instructor_teacher = 'Instructor or Teacher'
+    Intern = 'Intern'
+    Other = 'Other'
 
     PROFESSIONAL_STATUS_CHOICES = [
         (Developer, 'Developer'),
@@ -40,7 +40,7 @@ class Profile(models.Model):
     instagram_link = models.URLField(null=True, blank=True)
     github_link = models.URLField(null=True, blank=True)
     professional_status = models.CharField(
-        max_length=7,
+        max_length=21,
         choices=PROFESSIONAL_STATUS_CHOICES,
         default=Other,
         null=True, blank=True
@@ -58,6 +58,10 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse("Profile_detail", kwargs={"pk": self.pk})
+
+    @property
+    def full_name(self):
+        return f'{self.user.first_name} {self.user.last_name}'
 
 
 class Experience(models.Model):
@@ -92,8 +96,8 @@ class Education(models.Model):
         return self.sch_name
 
     class Meta:
-        verbose_name = 'Experience'
-        verbose_name_plural = 'Experiences'
+        verbose_name = 'Education'
+        verbose_name_plural = 'Educations'
 
 
 @receiver(post_save, sender=User)

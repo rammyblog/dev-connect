@@ -16,15 +16,29 @@ from .models import Profile, Experience, Education
 from .mixins import CustomErrorSerializer, DateValidation
 from datetime import date
 
+from django.core.exceptions import ObjectDoesNotExist
+
 
 class ProfileSerializer(CustomErrorSerializer,  serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField()
+    current_job = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('id', 'full_name', 'bio', 'current_job', 'skills', 'facebook_link', 'linkedin_link',
+                  'twitter_link', 'website', 'instagram_link', 'github_link', 'professional_status', 'image_url', 'location')
 
-    # def validate(self, value):
-    #     print(value)
+    def get_full_name(self, value):
+        return value.full_name
+
+    def get_current_job(self, value):
+        try:
+            current_job = Experience.objects.filter(
+                user=value.user, is_current=True).values_list('company_name', flat=True)[:1]
+            if current_job:
+                return current_job[0]
+        except ObjectDoesNotExist:
+            return None
 
 
 class ExperienceSerializer(DateValidation, CustomErrorSerializer, serializers.ModelSerializer):
@@ -43,8 +57,8 @@ class EducationSerializer(DateValidation, CustomErrorSerializer,  serializers.Mo
 
 class CustomRegisterSerializer(CustomErrorSerializer, RegisterSerializer):
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
-    first_name = serializers.CharField(required=False, write_only=True)
-    last_name = serializers.CharField(required=False, write_only=True)
+    first_name = serializers.CharField(required=True, write_only=True)
+    last_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
 

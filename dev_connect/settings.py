@@ -3,6 +3,7 @@
 from django.utils import timezone
 import os
 import environ
+import django_heroku
 
 env = environ.Env(
     # set casting, default value
@@ -191,6 +192,8 @@ REST_FRAMEWORK = {
 
 
 }
+
+django_heroku.settings(locals())
 
 # timezone.localtime(timezone.now())
 # print(timezone.localdate())

@@ -19,6 +19,20 @@ class ProfileViewSet(PermissionMixins, ModelViewSet):
     # def get_queryset(self):
     #     return Profile.objects.all()
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        response_data = serializer.data
+        # response_data['full_name'] =
+        # print(response_data)
+        return Response(serializer.data)
+
 
 class ExperienceViewSet(PermissionMixins, ModelViewSet):
     serializer_class = ExperienceSerializer
