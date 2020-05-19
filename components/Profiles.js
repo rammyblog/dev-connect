@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from "react"
 import { connect } from "react-redux"
-
 import { loadProfiles } from "../redux/profile/profileActions"
+import Link from "next/link"
 
 function Profiles({ loadProfiles, profiles }) {
   const getProfiles = useCallback(() => {
@@ -13,37 +13,47 @@ function Profiles({ loadProfiles, profiles }) {
   }, [])
   return (
     <>
-      <h1 class="large text-primary">Developer</h1>
+      <h1 className="large text-primary">Developer</h1>
 
-      <p class="lead">
-        <i class="fab fa-connectdevelop"></i>Browse and Connect with developers
+      <p className="lead">
+        <i className="fab fa-connectdevelop"></i>Browse and Connect with
+        developers
       </p>
-      <div class="profiles">
+      <div className="profiles">
         {profiles
-          ? profiles.map((profile) => (
-              <div class="profile bg-light">
-                <img src={profile.image_url} class="round-img" alt="" />
+          ? profiles.map((profile, idx) => (
+              <div className="profile bg-light" key={idx}>
+                <img src={profile.image_url} className="round-img" alt="" />
                 <div>
                   <h2>John Doe</h2>
-                  <p>Developer at Microsoft</p>
-                  <p>Seattle, WA</p>
-                  <a class="btn btn-primary" href="profile.html">
-                    View Profile
-                  </a>
+
+                  {profile.current_job ? (
+                    <p>
+                      {" "}
+                      {profile.professional_status} at {profile.current_job}{" "}
+                    </p>
+                  ) : (
+                    <p>{profile.professional_status}</p>
+                  )}
+
+                  <p>{profile.location}</p>
+                  <Link href={`/profile/${profile.id}`}>
+                    <a className="btn btn-primary">View Profile</a>
+                  </Link>
                 </div>
                 <ul>
-                  <li class="text-primary">
-                    <i class="fas fa-check"></i>HTML
-                  </li>
-                  <li class="text-primary">
-                    <i class="fas fa-check"></i>CSS
-                  </li>
-                  <li class="text-primary">
-                    <i class="fas fa-check"></i>JavaScript
-                  </li>
-                  <li class="text-primary">
-                    <i class="fas fa-check"></i>Python
-                  </li>
+                  {profile.skills ? (
+                    profile.skills.map((skill, idx) => (
+                      <li className="text-primary">
+                        <i className="fas fa-check"></i>
+                        {skill}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="text-primary">
+                      <i className="fas fa-check"></i>Null
+                    </li>
+                  )}
                 </ul>
               </div>
             ))

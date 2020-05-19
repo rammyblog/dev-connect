@@ -9,4 +9,4 @@ function profiles() {
   )
 }
 
-export default profiles
+export default PrivateRoute(profiles)
