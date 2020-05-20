@@ -6,33 +6,33 @@ import { persistStore } from "redux-persist"
 
 // CREATING INITIAL STORE
 export default (initialState) => {
-  let store
+  // let store
 
-  const isClient = typeof window !== "undefined"
+  // const isClient = typeof window !== "undefined"
 
-  if (isClient) {
-    const { persistReducer } = require("redux-persist")
-    const storage = require("redux-persist/lib/storage").default
+  // if (isClient) {
+  //   const { persistReducer } = require("redux-persist")
+  //   const storage = require("redux-persist/lib/storage").default
 
-    const persistConfig = {
-      key: "root",
-      storage,
-    }
+  //   const persistConfig = {
+  //     key: "root",
+  //     storage,
+  //   }
 
-    store = createStore(
-      persistReducer(persistConfig, reducers),
-      initialState,
-      applyMiddleware(thunkMiddleware)
-    )
+  //   store = createStore(
+  //     persistReducer(persistConfig, reducers),
+  //     initialState,
+  //     applyMiddleware(thunkMiddleware)
+  //   )
 
-    store.__PERSISTOR = persistStore(store)
-  } else {
-    store = createStore(
-      reducers,
-      initialState,
-      composeWithDevTools(applyMiddleware(thunkMiddleware))
-    )
-  }
+  //   store.__PERSISTOR = persistStore(store)
+  // } else {
+  const store = createStore(
+    reducers,
+    initialState,
+    composeWithDevTools(applyMiddleware(thunkMiddleware))
+  )
+  // }
 
   // IF REDUCERS WERE CHANGED, RELOAD WITH INITIAL STATE
   if (module.hot) {

@@ -597,6 +597,9 @@ img {
     transform: translate(24px, 0);
   }
 }
+.text-danger {
+  color: #dc3545;
+}
 @media (max-width: 700px) {
   .hide-sm {
     display: none;

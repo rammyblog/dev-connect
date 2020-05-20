@@ -10,14 +10,14 @@ import { loadProfiles } from "../redux/profile/profileActions"
 import { PersistGate } from "redux-persist/integration/react"
 
 class MyApp extends App {
-  componentDidUpdate(prevProps) {
-    // console.log(this.props.profile.length)
-    console.log(this.props.profiles)
+  // componentDidUpdate(prevProps) {
+  //   // console.log(this.props.profile.length)
+  //   console.log(this.props.profiles)
 
-    if (!this.props.profiles || this.props.profiles.length <= 0) {
-      this.props.loadProfiles()
-    }
-  }
+  //   if (!this.props.profiles || this.props.profiles.length <= 0) {
+  //     this.props.loadProfiles()
+  //   }
+  // }
 
   // static getDerivedStateFromProps(props, state) {
   //   // Any time the current user changes,
@@ -34,26 +34,24 @@ class MyApp extends App {
 
     return (
       <Provider store={store}>
-        <PersistGate persistor={store.__PERSISTOR} loading={null}>
-          <Navbar />
-          <div className="container">
-            <Component {...pageProps} />
-          </div>
-        </PersistGate>
+        {/* <PersistGate persistor={store.__PERSISTOR} loading={null}> */}
+        <Navbar />
+        <div className="">
+          <Component {...pageProps} />
+        </div>
+        {/* </PersistGate> */}
       </Provider>
     )
   }
 }
 
-const mapDispatchToProps = {
-  loadProfiles,
-}
-function mapStateToProps(state) {
-  return {
-    profiles: state.profiles,
-  }
-}
+// const mapDispatchToProps = {
+//   loadProfiles,
+// }
+// function mapStateToProps(state) {
+//   return {
+//     profiles: state.profiles,
+//   }
+// }
 
-export default withReduxStore(
-  connect(mapStateToProps, mapDispatchToProps)(MyApp)
-)
+export default withReduxStore(MyApp)

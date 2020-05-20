@@ -2,15 +2,16 @@ import React, { useEffect, useCallback } from "react"
 import { connect } from "react-redux"
 import { loadProfiles } from "../redux/profile/profileActions"
 import Link from "next/link"
+import ProfilesLoaded from "../utils/ProfilesLoaded"
 
 function Profiles({ loadProfiles, profiles }) {
-  const getProfiles = useCallback(() => {
-    loadProfiles()
-  }, [])
+  // const getProfiles = useCallback(() => {
+  //   loadProfiles()
+  // }, [])
 
-  useEffect(() => {
-    getProfiles()
-  }, [])
+  // useEffect(() => {
+  //   getProfiles()
+  // }, [])
   return (
     <>
       <h1 className="large text-primary">Developer</h1>
@@ -37,7 +38,7 @@ function Profiles({ loadProfiles, profiles }) {
                   )}
 
                   <p>{profile.location}</p>
-                  <Link href={`/profile/${profile.id}`}>
+                  <Link href="/profile/[id]" as={`/profile/${profile.id}`}>
                     <a className="btn btn-primary">View Profile</a>
                   </Link>
                 </div>
@@ -73,4 +74,6 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profiles)
+export default ProfilesLoaded(
+  connect(mapStateToProps, mapDispatchToProps)(Profiles)
+)

@@ -29,7 +29,7 @@ export const authLogin = (email, password) => {
         localStorage.setItem("expirationDate", expirationDate)
         localStorage.setItem("email", email)
         dispatch(authSuccess(token, email))
-        Router.push("/profile")
+        Router.push("/profiles")
       })
       .catch((error) => {
         const error_msg = error.error_msg || error.message

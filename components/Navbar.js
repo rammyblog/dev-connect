@@ -11,7 +11,9 @@ function Navbar() {
 
       <ul>
         <li>
-          <a href="profiles.html">Developers</a>
+          <Link href="/profiles">
+            <a>Developers</a>
+          </Link>
         </li>
         <li>
           <Link href="/register">

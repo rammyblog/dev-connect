@@ -1,34 +1,28 @@
 import React, { useEffect, useState, useCallback } from "react"
 import { connect } from "react-redux"
 import { loadProfiles } from "../redux/profile/profileActions"
+import ProfilesLoaded from "../utils/ProfilesLoaded"
+import Link from "next/link"
 
 function Profile({ id, profiles }) {
-  const [userProfile, setUserProfile] = useState()
-
-  const getProfile = useCallback(() => {
-    console.log(Number(id))
-    const test = profiles.filter((profile) => profile.id == id)
-    console.log(test)
-
-    setUserProfile(test)
-    console.log({ userProfile })
-  }, [userProfile])
-
-  // const userData = () => {
-
-  // }
+  const [userProfile, setUserProfile] = useState(null)
 
   useEffect(() => {
     getProfile()
-  }, [])
+  }, [profiles])
+
+  const getProfile = () => {
+    const singleProfile = profiles.filter((profile) => profile.id == id)
+    setUserProfile(singleProfile)
+  }
 
   return (
     <>
       {userProfile ? (
         <>
-          <a href="profiles.html" className="btn">
-            Back To Profiles
-          </a>
+          <Link href="/profiles">
+            <a className="btn">Back To Profiles</a>
+          </Link>
           {userProfile.map((profile) => (
             <div className="profile-grid my-1">
               {/* <!-- Top --> */}
@@ -224,4 +218,6 @@ const mapDispatchToProps = {
   loadProfiles,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default ProfilesLoaded(
+  connect(mapStateToProps, mapDispatchToProps)(Profile)
+)
