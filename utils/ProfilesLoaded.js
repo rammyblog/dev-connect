@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react"
 
 import { loadProfiles } from "../redux/profile/profileActions"
+import { loadEducations } from "../redux/education/educationActions"
+import { loadExperiences } from "../redux/experience/experienceActions"
 
 import { useStore, useDispatch } from "react-redux"
 
@@ -14,6 +16,9 @@ const ProfilesLoaded = (Component) => {
     const loadProfilesFromDb = useCallback(async () => {
       setloading(false)
       await dispatch(loadProfiles())
+      await dispatch(loadEducations())
+      await dispatch(loadExperiences())
+
       setloading(true)
     }, [dispatch])
 

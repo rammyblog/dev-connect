@@ -4,8 +4,18 @@ import { loadProfiles } from "../redux/profile/profileActions"
 import ProfilesLoaded from "../utils/ProfilesLoaded"
 import Link from "next/link"
 
-function Profile({ id, profiles }) {
+import { getUserProfileEducations } from "../redux/education/educationActions"
+import { getUserProfileExperiences } from "../redux/experience/experienceActions"
+
+function Profile({
+  id,
+  profiles,
+  getUserProfileEducations,
+  getUserProfileExperiences,
+  experiences,
+}) {
   const [userProfile, setUserProfile] = useState(null)
+  const { userExperiences } = experiences
 
   useEffect(() => {
     getProfile()
@@ -13,13 +23,19 @@ function Profile({ id, profiles }) {
 
   const getProfile = () => {
     const singleProfile = profiles.filter((profile) => profile.id == id)
+    getUserProfileEducations(id)
+    getUserProfileExperiences(id)
     setUserProfile(singleProfile)
   }
+
+  // useEffect(() => {
+  //   getProfiles()
+  // }, [])
 
   return (
     <>
       {userProfile ? (
-        <>
+        <section className="container">
           <Link href="/profiles">
             <a className="btn">Back To Profiles</a>
           </Link>
@@ -88,18 +104,7 @@ function Profile({ id, profiles }) {
               {/* Experience   */}
               <div className="profile-exp bg-white p-2">
                 <h2 className="text-primary">Experiences</h2>
-                <div>
-                  <h3>Microsoft</h3>
-                  <p>Oct 2011 - Current</p>
-                  <p>
-                    <strong>Position: </strong> Senior Developer
-                  </p>
-                  <p>
-                    <strong>Description: </strong> Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Saepe cupiditate ex placeat
-                    nisi hic a molestiae aperiam architecto nostrum praesentium.
-                  </p>
-                </div>
+                {}
                 <div>
                   <h3>Sun Microsystems</h3>
                   <p>OCt 2004 - Nov 2010</p>
@@ -200,7 +205,7 @@ function Profile({ id, profiles }) {
               </div>
             </div>
           ))}
-        </>
+        </section>
       ) : (
         <p>Loading</p>
       )}
@@ -211,11 +216,15 @@ function Profile({ id, profiles }) {
 function mapStateToProps(state) {
   return {
     profiles: state.profiles,
+    educations: state.educations,
+    experiences: state.experiences,
   }
 }
 
 const mapDispatchToProps = {
   loadProfiles,
+  getUserProfileEducations,
+  getUserProfileExperiences,
 }
 
 export default ProfilesLoaded(

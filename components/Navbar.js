@@ -4,9 +4,11 @@ function Navbar() {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <a href="dashboard.html">
-          <i className="fas fa-code"></i> DevConnector
-        </a>
+        <Link href="/profiles">
+          <a>
+            <i className="fas fa-code"></i> DevConnector
+          </a>
+        </Link>
       </h1>
 
       <ul>

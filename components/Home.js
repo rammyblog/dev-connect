@@ -1,4 +1,4 @@
-import React from "react"
+import Link from "next/link"
 
 export default function Home() {
   return (
@@ -12,12 +12,13 @@ export default function Home() {
               other developers{" "}
             </p>
             <div className="buttons">
-              <a href="register.html" className="btn btn-primary">
-                Sign up
-              </a>
-              <a href="login.html" className="btn ">
-                Login
-              </a>
+              <Link href="/register">
+                <a className="btn btn-primary">Register</a>
+              </Link>
+
+              <Link href="/login">
+                <a className="btn ">Login</a>
+              </Link>
             </div>
           </div>
         </div>

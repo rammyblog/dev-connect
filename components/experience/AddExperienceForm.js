@@ -7,7 +7,7 @@ import { connect } from "react-redux"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useState } from "react"
 
-import { addEducationDispatch } from "../../redux/education/educationActions"
+import { addExperienceDispatch } from "../../redux/experience/experienceActions"
 
 function AddExperienceForm({ addExperienceDispatch }) {
   const [isCurrent, setIsCurrent] = useState(false)
@@ -16,17 +16,17 @@ function AddExperienceForm({ addExperienceDispatch }) {
   return (
     <>
       <section className="container">
-        <h1 className="large text-primary">Add Your Education</h1>
+        <h1 className="large text-primary">Add Your Experience</h1>
         <p className="lead">
-          <i className="fas fa-graduation-cap"></i> Add any school, bootcamp,
-          etc that you have attended
+          <i className="fas fa-code-branch"></i> Add any developer/programming
+          positions that you have had in the past
         </p>
         <small>* = required field</small>
         <Formik
           initialValues={{
-            school: "",
-            degree: "",
-            fieldOfStudy: "",
+            job_title: "",
+            company_name: "",
+            location: "",
             fromDate: "",
             toDate: "",
             current: false,
@@ -49,10 +49,10 @@ function AddExperienceForm({ addExperienceDispatch }) {
           onSubmit={(values, { setSubmitting }) => {
             console.log(values)
 
-            addEducationDispatch(
-              values.school,
-              values.fieldOfStudy,
-              values.degree,
+            addExperienceDispatch(
+              values.company_name,
+              values.job_title,
+              values.location,
               values.fromDate,
               values.toDate,
               values.current,
@@ -66,26 +66,26 @@ function AddExperienceForm({ addExperienceDispatch }) {
               <Field
                 type="text"
                 className="form-group"
-                placeholder="School or Bootcamp"
-                name="school"
+                placeholder="* Job Title"
+                name="job_title"
                 required
               />
-              <ErrorMessage name="school" component="div" />
+              <ErrorMessage name="job_title" component="div" />
               <Field
                 type="text"
                 className="form-group"
-                placeholder="* Degree or Certificate"
-                name="degree"
+                placeholder="* Company"
+                name="company_name"
                 required
               />
-              <ErrorMessage name="degree" component="div" />
+              <ErrorMessage name="company_name" component="div" />
               <Field
                 type="text"
                 className="form-group"
-                placeholder="Field Of Study"
-                name="fieldOfStudy"
+                placeholder="Location"
+                name="location"
               />
-              <ErrorMessage name="fieldOfStudy" component="div" />
+              <ErrorMessage name="location" component="div" />
               <h4>From Date</h4>
               <Field
                 type="date"
@@ -109,7 +109,7 @@ function AddExperienceForm({ addExperienceDispatch }) {
                 />
               ) : null}
               <Field type="checkbox" className="form-group" name="current" />{" "}
-              Current
+              Current Job
               <ErrorMessage
                 className="text-danger"
                 name="current"
@@ -118,7 +118,7 @@ function AddExperienceForm({ addExperienceDispatch }) {
               <Field
                 component="textarea"
                 className="form-group"
-                placeholder="Program Description"
+                placeholder="Job Description"
                 name="description"
                 cols="30"
                 rows="5"

@@ -1,5 +1,10 @@
-import { addEducationApi, loadEducationApi } from "../../api/educationApi"
+import {
+  addEducationApi,
+  loadEducationApi,
+  loadUserEducationApi,
+} from "../../api/educationApi"
 import * as types from "./educationTypes"
+import Router from "next/router"
 
 export function loadEducationStart() {
   return { type: types.LOAD_EDUCATION_START }
@@ -10,7 +15,11 @@ export function loadEducationSuccess(educations) {
 }
 
 export function loadUserEducations(educations) {
-  return { type: types.LOAD_USER_EDUCATIONS, payload: id }
+  return { type: types.LOAD_USER_EDUCATIONS, payload: educations }
+}
+
+export function loadUserProfileEducations(id) {
+  return { type: types.LOAD_USER_PROFILE_EDUCATIONS, payload: id }
 }
 
 export function addEducation(education) {
@@ -39,6 +48,7 @@ export function addEducationDispatch(
     )
       .then((education) => {
         dispatch(addEducation(education.data))
+        Router.push("/dashboard")
       })
       .catch((error) => {
         // dispatch(apiCallError(error))
@@ -61,9 +71,23 @@ export function loadEducations() {
   }
 }
 
-export function getUserEducations(id) {
+export function loadUserEducationsRecords() {
   return function (dispatch) {
     dispatch(loadEducationStart())
-    return dispatch(loadEducationSuccess(education.data))
+    return loadUserEducationApi()
+      .then((education) => {
+        dispatch(loadUserEducations(education.data))
+      })
+      .catch((error) => {
+        // dispatch(apiCallError(error))
+        throw error
+      })
+  }
+}
+
+export function getUserProfileEducations(id) {
+  return function (dispatch) {
+    dispatch(loadEducationStart())
+    return dispatch(loadUserProfileEducations(id))
   }
 }

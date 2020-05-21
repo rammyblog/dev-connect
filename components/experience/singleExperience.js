@@ -1,18 +1,17 @@
 import React from "react"
 
-export default function singleExperience() {
+export default function singleExperience(props) {
+  const { company_name, from_date, position, desc } = props
   return (
     <>
       <div>
-        <h3>Microsoft</h3>
-        <p>Oct 2011 - Current</p>
+        <h3>{company_name}</h3>
+        <p>{from_date} - Current</p>
         <p>
-          <strong>Position: </strong> Senior Developer
+          <strong>Position: </strong> {position}
         </p>
         <p>
-          <strong>Description: </strong> Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Saepe cupiditate ex placeat nisi hic a molestiae
-          aperiam architecto nostrum praesentium.
+          <strong>Description: </strong> {desc}
         </p>
       </div>
     </>

@@ -4,6 +4,7 @@ import * as types from "./educationTypes"
 
 const initialEducationState = {
   educations: [],
+  userEducations: [],
   loading: false,
 }
 
@@ -15,15 +16,36 @@ export const educationReducer = (
     case types.LOAD_EDUCATION_START:
       return { ...state, loading: true }
     case types.LOAD_EDUCATIONS:
-      return { ...state, educations: payload }
+      return { ...state, educations: payload, loading: false }
     case types.ADD_EDUCATION:
       return {
         ...state,
-        educations: [payload, ...state.educations],
+        loading: false,
+        educations: payload,
+        ...state.educations,
       }
 
     case types.LOAD_USER_EDUCATIONS:
-      return state.filter((education) => education.user === id)
+      return {
+        ...state,
+        loading: false,
+        userEducations: payload,
+        ...state.userEducations,
+      }
+
+    case types.LOAD_USER_PROFILE_EDUCATIONS:
+      console.log(
+        state.educations.filter((education) => education.profile_id === payload)
+      )
+      console.log(payload)
+
+      return {
+        ...state,
+        userEducations: state.educations.filter(
+          (education) => education.profile_id === Number(payload)
+        ),
+        loading: false,
+      }
     default:
       return state
   }

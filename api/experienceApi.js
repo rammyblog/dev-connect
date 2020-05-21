@@ -1,20 +1,20 @@
 import { handleResponse, handleError } from "./apiUtils"
 import axios from "axios"
-const baseUrl = process.env.BASE_URL + "api/education/"
+const baseUrl = process.env.BASE_URL + "api/experience/"
 
-export function addEducationApi(
-  sch_name,
-  fieldOfStudy,
-  degree,
+export function addExperienceApi(
+  company_name,
+  job_title,
+  location,
   from_date,
   to_date,
   is_current,
   desc
 ) {
   let body = {
-    sch_name: sch_name,
-    field_of_study: fieldOfStudy,
-    degree: degree,
+    company_name: company_name,
+    job_title: job_title,
+    location: location,
     from_date: from_date,
     to_date: to_date,
     is_current: is_current,
@@ -32,7 +32,7 @@ export function addEducationApi(
     .catch(handleError)
 }
 
-export function loadEducationApi() {
+export function loadExperienceApi() {
   return axios
     .get(
       baseUrl,
@@ -47,7 +47,7 @@ export function loadEducationApi() {
     .catch(handleError)
 }
 
-export function loadUserEducationApi() {
+export function loadUserExperienceApi() {
   return axios
     .get(baseUrl + "user/list", {
       headers: {
