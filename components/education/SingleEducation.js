@@ -1,25 +1,30 @@
 import React from "react"
 
-export default function SingleExperience(props) {
+function SingleEducation(props) {
   const {
-    company_name,
+    school,
     from_date,
     to_date,
     is_current,
-    job_title,
+    degree,
     desc,
-  } = props.experience
+    field_of_study,
+  } = props.education
 
   return (
     <>
       <div>
-        <h3>{company_name}</h3>
+        <h3>{school}</h3>
         <p>
           {from_date} - {is_current ? "Current" : to_date}
         </p>
         <p>
-          <strong>Position: </strong> {job_title}
+          <strong>Degree: </strong> {degree}
         </p>
+        <p>
+          <strong>Field Of Study: </strong> {field_of_study}
+        </p>
+
         <p>
           <strong>Description: </strong> {desc}
         </p>
@@ -27,3 +32,5 @@ export default function SingleExperience(props) {
     </>
   )
 }
+
+export default SingleEducation

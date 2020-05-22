@@ -135,6 +135,7 @@ function mapStateToProps(state) {
   return {
     experiences: state.experience,
     educations: state.education,
+    profile: state.profile,
   }
 }
 

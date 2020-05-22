@@ -34,11 +34,6 @@ export const educationReducer = (
       }
 
     case types.LOAD_USER_PROFILE_EDUCATIONS:
-      console.log(
-        state.educations.filter((education) => education.profile_id === payload)
-      )
-      console.log(payload)
-
       return {
         ...state,
         userEducations: state.educations.filter(

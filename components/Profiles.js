@@ -61,8 +61,8 @@ function Profiles({ profiles }) {
 
 const mapDispatchToProps = {
   loadProfiles,
-  getUserProfileEducations,
-  getUserProfileExperiences,
+  // getUserProfileEducations,
+  // getUserProfileExperiences,
 }
 
 function mapStateToProps(state) {

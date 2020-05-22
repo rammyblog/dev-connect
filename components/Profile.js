@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react"
-import { connect } from "react-redux"
+import { connect, useStore } from "react-redux"
 import { loadProfiles } from "../redux/profile/profileActions"
 import ProfilesLoaded from "../utils/ProfilesLoaded"
 import Link from "next/link"
 
 import { getUserProfileEducations } from "../redux/education/educationActions"
 import { getUserProfileExperiences } from "../redux/experience/experienceActions"
+import SingleExperience from "./experience/singleExperience"
+import SingleEducation from "./education/SingleEducation"
 
 function Profile({
   id,
@@ -13,12 +15,12 @@ function Profile({
   getUserProfileEducations,
   getUserProfileExperiences,
   experiences,
+  educations,
 }) {
-  const [userProfile, setUserProfile] = useState(null)
-  const { userExperiences } = experiences
-
   useEffect(() => {
     getProfile()
+
+    // const { userExperiences } = experiences
   }, [profiles])
 
   const getProfile = () => {
@@ -28,9 +30,9 @@ function Profile({
     setUserProfile(singleProfile)
   }
 
-  // useEffect(() => {
-  //   getProfiles()
-  // }, [])
+  const [userProfile, setUserProfile] = useState(null)
+  const { userExperiences } = experiences
+  const { userEducations } = educations
 
   return (
     <>
@@ -104,40 +106,21 @@ function Profile({
               {/* Experience   */}
               <div className="profile-exp bg-white p-2">
                 <h2 className="text-primary">Experiences</h2>
-                {}
-                <div>
-                  <h3>Sun Microsystems</h3>
-                  <p>OCt 2004 - Nov 2010</p>
-                  <p>
-                    <strong>Position: </strong> Systems Admin
-                  </p>
-                  <p>
-                    <strong>Description: </strong> Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Saepe cupiditate ex placeat
-                    nisi hic a molestiae aperiam architecto nostrum praesentium.
-                  </p>
-                </div>
+                {userExperiences
+                  ? userExperiences.map((exp, id) => (
+                      <SingleExperience experience={exp} key={id} />
+                    ))
+                  : null}
               </div>
 
               {/* <!-- Education --> */}
               <div className="profile-edu bg-white p-2">
                 <h2 className="text-primary">Education</h2>
-                <div>
-                  <h3>University of Washington</h3>
-                  <p>Sep 1993 - June 1999</p>
-                  <p>
-                    <strong>Degree: </strong> Masters
-                  </p>
-                  <p>
-                    <strong>Field Of Study: </strong> Computer Science
-                  </p>
-
-                  <p>
-                    <strong>Description: </strong> Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Saepe cupiditate ex placeat
-                    nisi hic a molestiae aperiam architecto nostrum praesentium.
-                  </p>
-                </div>
+                {userEducations
+                  ? userEducations.map((edu, id) => (
+                      <SingleEducation education={edu} key={id} />
+                    ))
+                  : null}
               </div>
 
               {/* <!-- Githun Repos --> */}
@@ -216,8 +199,8 @@ function Profile({
 function mapStateToProps(state) {
   return {
     profiles: state.profiles,
-    educations: state.educations,
-    experiences: state.experiences,
+    educations: state.education,
+    experiences: state.experience,
   }
 }
 
