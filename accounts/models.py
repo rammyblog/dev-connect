@@ -56,9 +56,6 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    def get_absolute_url(self):
-        return reverse("Profile_detail", kwargs={"pk": self.pk})
-
     @property
     def full_name(self):
         return f'{self.user.first_name} {self.user.last_name}'
@@ -68,11 +65,15 @@ class Experience(models.Model):
     user = models.ForeignKey(
         User, related_name='user_experience', on_delete=models.CASCADE)
     company_name = models.CharField(max_length=400)
+    job_title = models.CharField(max_length=400, blank=True, null=True)
+    location = models.CharField(max_length=400, blank=True, null=True)
     from_date = models.DateField(auto_now=False, auto_now_add=False)
     to_date = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
     is_current = models.BooleanField()
     desc = models.CharField(max_length=5000)
+    profile_id = models.ForeignKey(
+        Profile,  on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.company_name
@@ -91,6 +92,10 @@ class Education(models.Model):
         auto_now=False, auto_now_add=False, blank=True, null=True)
     is_current = models.BooleanField()
     desc = models.CharField(max_length=5000)
+    field_of_study = models.CharField(max_length=100, blank=True, null=True)
+    degree = models.CharField(max_length=200, blank=True, null=True)
+    profile_id = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.sch_name

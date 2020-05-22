@@ -1,9 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from .serializers import EducationSerializer, ProfileSerializer, ExperienceSerializer
 from .models import Profile, Education, Experience
 from django.shortcuts import get_object_or_404
 from .mixins import PermissionMixins
+from .permissions import IsOwnerOrReadOnly
 
 
 class ProfileViewSet(PermissionMixins, ModelViewSet):
@@ -13,11 +15,6 @@ class ProfileViewSet(PermissionMixins, ModelViewSet):
     """
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
-
-    # permission_classes = [IsOwnerOrReadOnly]
-
-    # def get_queryset(self):
-    #     return Profile.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -38,7 +35,52 @@ class ExperienceViewSet(PermissionMixins, ModelViewSet):
     serializer_class = ExperienceSerializer
     queryset = Experience.objects.all()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class EducationViewSet(PermissionMixins, ModelViewSet):
     serializer_class = EducationSerializer
     queryset = Education.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class UserEducationList(APIView):
+    serializer_class = EducationSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return Education.objects.filter(user=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = EducationSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class UserExperienceList(APIView):
+    serializer_class = ExperienceSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return Experience.objects.filter(user=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = ExperienceSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class UserProfile(APIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = ProfileSerializer(queryset, many=True)
+        return Response(serializer.data)

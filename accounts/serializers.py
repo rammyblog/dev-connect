@@ -45,14 +45,16 @@ class ExperienceSerializer(DateValidation, CustomErrorSerializer, serializers.Mo
 
     class Meta:
         model = Experience
-        fields = '__all__'
+        fields = ['company_name', 'job_title', 'location',
+                  'from_date', 'to_date', 'is_current', 'desc', 'profile_id']
 
 
 class EducationSerializer(DateValidation, CustomErrorSerializer,  serializers.ModelSerializer):
 
     class Meta:
         model = Education
-        fields = '__all__'
+        fields = ['sch_name', 'from_date', 'to_date',
+                  'is_current', 'desc', 'field_of_study', 'degree', 'profile_id']
 
 
 class CustomRegisterSerializer(CustomErrorSerializer, RegisterSerializer):
