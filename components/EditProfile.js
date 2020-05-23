@@ -1,10 +1,14 @@
 import { connect } from "react-redux"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik"
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
-import { editProfile, loadUserProfile } from "../redux/profile/profileActions"
+import {
+  editProfileDispatch,
+  loadUserProfile,
+} from "../redux/profile/profileActions"
+import EditableTagGroup from "./tags"
 
-function EditProfile({ profiles, loadUserProfile }) {
+function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
   const getProfile = useCallback(() => {
     loadUserProfile()
   }, [])
@@ -13,7 +17,13 @@ function EditProfile({ profiles, loadUserProfile }) {
   }, [])
 
   const { userProfile } = profiles
-  console.log(userProfile.company_name)
+
+  const [skills, setSkills] = useState(profiles.skills || [])
+
+  const handleTagChange = (tags) => {
+    setSkills(tags)
+    console.log({ skills }, "kfk")
+  }
 
   return (
     <>
@@ -32,16 +42,17 @@ function EditProfile({ profiles, loadUserProfile }) {
               key={id}
               initialValues={{
                 professionalStatus: profile.professional_status,
-                companyName: profile.current_job,
-                website: "",
-                location: "",
-                skills: "",
-                githubUsername: "",
-                bio: "",
-                twitterLink: "",
-                facebookLink: "",
-                youtubeLink: "",
-                linkedinLink: "",
+                companyName: profile.current_job || "",
+                website: profile.website || "",
+                location: profile.location || "",
+                // skills: profile.skills || [],
+                githubUsername: profile.github_link || "",
+                bio: profile.bio || "",
+                twitterLink: profile.twitter_link || "",
+                facebookLink: profile.facebook_link || "",
+                instagramLink: profile.instagram_link || "",
+                linkedinLink: profile.linkedin_link || "",
+                id: profile.id,
               }}
               validate={(values) => {
                 const errors = {}
@@ -49,25 +60,16 @@ function EditProfile({ profiles, loadUserProfile }) {
                 return errors
               }}
               onSubmit={(values, { setSubmitting }) => {
+                values.skills = skills
                 console.log(values)
+                console.log(skills)
 
-                addExperienceDispatch(
-                  values.professionalStatus,
-                  values.companyName,
-                  values.website,
-                  values.location,
-                  values.skills,
-                  values.githubUsername,
-                  values.bio,
-                  values.twitterLink,
-                  values.facebookLink,
-                  values.instagramLink,
-                  values.linkedinLink
-                )
+                editProfileDispatch(values)
+
                 setSubmitting(false)
               }}
             >
-              {({ isSubmitting }) => (
+              {({ isSubmitting, values }) => (
                 <Form className="form">
                   <Field
                     component="select"
@@ -123,12 +125,19 @@ function EditProfile({ profiles, loadUserProfile }) {
                     City & state suggested (eg. Boston, MA)
                   </small>
                   <ErrorMessage name="location" component="div" />
-                  <Field
+                  {/* <Field
                     type="text"
-                    className="form-group"
+                   
                     placeholder="* Skills"
                     name="skills"
-                  />
+                  /> */}
+                  <div className="form-group">
+                    <EditableTagGroup
+                      handleTagChange={handleTagChange}
+                      skills={skills}
+                      className="form-group"
+                    />
+                  </div>
                   <small className="form-text">
                     Please use comma separated values (eg.
                     HTML,CSS,JavaScript,PHP)
@@ -213,7 +222,7 @@ function EditProfile({ profiles, loadUserProfile }) {
 }
 
 const mapDispatchToProps = {
-  editProfile,
+  editProfileDispatch,
   loadUserProfile,
 }
 

@@ -14,23 +14,30 @@ const ProfilesLoaded = (Component) => {
     const dispatch = useDispatch()
 
     const loadProfilesFromDb = useCallback(async () => {
-      setloading(false)
-      await dispatch(loadProfiles())
-      await dispatch(loadEducations())
-      await dispatch(loadExperiences())
-
       setloading(true)
+      console.log("hekk")
+
+      dispatch(loadProfiles())
+      dispatch(loadEducations())
+      dispatch(loadExperiences())
+
+      setloading(false)
     }, [dispatch])
 
     useEffect(() => {
-      if (currentState.profiles.length <= 0) {
+      console.log(currentState.profiles.profiles)
+
+      if (
+        currentState.profiles.profiles &&
+        currentState.profiles.profiles.length <= 0
+      ) {
         loadProfilesFromDb()
       }
     }, [])
 
     return (
       <>
-        {currentState.profiles.length > 0 ? (
+        {currentState.profiles.profiles.length > 0 ? (
           <Component {...props} />
         ) : (
           <p>Loadin</p>

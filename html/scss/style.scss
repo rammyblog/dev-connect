@@ -302,5 +302,16 @@ img {
     color: $danger-color
 }
 
+.skill-tag {
+    padding: 0.25rem;
+    background: #f9f9f9;
+    box-shadow: -1px 1px 4px 0px black;
+}
+
+
+.m-half {
+    margin: 0 0.4rem;
+}
+
 
 @import 'mobile';

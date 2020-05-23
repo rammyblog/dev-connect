@@ -5,6 +5,7 @@ import Link from "next/link"
 import ProfilesLoaded from "../utils/ProfilesLoaded"
 
 function Profiles({ profiles }) {
+  const { profiles: allProfiles } = profiles
   return (
     <>
       <section className="container">
@@ -15,8 +16,8 @@ function Profiles({ profiles }) {
           developers
         </p>
         <div className="profiles">
-          {profiles
-            ? profiles.map((profile, idx) => (
+          {allProfiles
+            ? allProfiles.map((profile, idx) => (
                 <div className="profile bg-light" key={idx}>
                   <img src={profile.image_url} className="round-img" alt="" />
                   <div>

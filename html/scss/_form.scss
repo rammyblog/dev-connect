@@ -1,6 +1,13 @@
 .form {
     &-group {
         margin: 1.2rem 0;
+
+        .skills {
+            border: 1px solid;
+            padding: 0.4rem;
+            font-size: 1.2rem;
+            border: 1px solid #ccc;
+        }
     }
 
     &-text {

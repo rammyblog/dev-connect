@@ -27,7 +27,7 @@ $max-width: 1100px;
 }
 
 // Margin & Padding
-$spaceamounts: (1, 2, 3, 4, 5);
+$spaceamounts: (12, 1, 2, 3, 4, 5);
 
 @each $space in $spaceamounts {
 
@@ -41,7 +41,15 @@ $spaceamounts: (1, 2, 3, 4, 5);
         margin: #{$space}rem 0;
     }
 
+    .mx-#{$space} {
+        margin: 0 #{$space}rem;
+    }
+
 }
+
+
+
+
 
 @each $space in $spaceamounts {
 

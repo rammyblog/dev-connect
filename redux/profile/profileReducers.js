@@ -26,11 +26,17 @@ export const profileReducer = (
       }
 
     case types.EDIT_PROFILE:
-      const tempState = state.slice()
-      const profileState = tempState.map(
-        (state) => state.find((profile) => profile.id == payload.id) || profile
-      )
-      return { ...state, loading: false, profiles: profileState }
+      // const profileState = tempState.map(
+      //   (state) => state.find((profile) => profile.id == payload.id) || profile
+      // )
+      console.log({ payload })
+
+      return {
+        ...state,
+        loading: false,
+        // profiles: profileState,
+        userProfile: [payload, ...state.userProfile],
+      }
     default:
       return state
   }

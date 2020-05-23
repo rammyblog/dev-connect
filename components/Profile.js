@@ -19,12 +19,12 @@ function Profile({
 }) {
   useEffect(() => {
     getProfile()
-
-    // const { userExperiences } = experiences
   }, [profiles])
 
+  const { profiles: allProfiles } = profiles
+
   const getProfile = () => {
-    const singleProfile = profiles.filter((profile) => profile.id == id)
+    const singleProfile = allProfiles.filter((profile) => profile.id == id)
     getUserProfileEducations(id)
     getUserProfileExperiences(id)
     setUserProfile(singleProfile)
@@ -84,7 +84,9 @@ function Profile({
 
               {/* <!-- About --> */}
               <div className="profile-about bg-light p-2">
-                <h2 className="text-primary">John's Bio</h2>
+                <h2 className="text-primary">
+                  {profile.full_name.split(" ")[0]}'s Bio
+                </h2>
                 <p>{profile.bio}</p>
                 <div className="line"></div>
                 <h2 className="text-primary">Skill Set</h2>

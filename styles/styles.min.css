@@ -1,8 +1,20 @@
+.m-12 {
+  margin: 12rem;
+}
+.my-12 {
+  margin: 12rem 0;
+}
+.mx-12 {
+  margin: 0 12rem;
+}
 .m-1 {
   margin: 1rem;
 }
 .my-1 {
   margin: 1rem 0;
+}
+.mx-1 {
+  margin: 0 1rem;
 }
 .m-2 {
   margin: 2rem;
@@ -10,11 +22,17 @@
 .my-2 {
   margin: 2rem 0;
 }
+.mx-2 {
+  margin: 0 2rem;
+}
 .m-3 {
   margin: 3rem;
 }
 .my-3 {
   margin: 3rem 0;
+}
+.mx-3 {
+  margin: 0 3rem;
 }
 .m-4 {
   margin: 4rem;
@@ -22,11 +40,23 @@
 .my-4 {
   margin: 4rem 0;
 }
+.mx-4 {
+  margin: 0 4rem;
+}
 .m-5 {
   margin: 5rem;
 }
 .my-5 {
   margin: 5rem 0;
+}
+.mx-5 {
+  margin: 0 5rem;
+}
+.p-12 {
+  padding: 12rem;
+}
+.py-12 {
+  margin: 12rem 0;
 }
 .p-1 {
   padding: 1rem;
@@ -226,6 +256,12 @@
 }
 .form-group {
   margin: 1.2rem 0;
+}
+.form-group .skills {
+  border: 1px solid;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
 }
 .form-text {
   display: block;
@@ -599,6 +635,15 @@ img {
 }
 .text-danger {
   color: #dc3545;
+}
+.skill-tag {
+  padding: 0.25rem;
+  background: #f9f9f9;
+  -webkit-box-shadow: -1px 1px 4px 0px black;
+  box-shadow: -1px 1px 4px 0px black;
+}
+.m-half {
+  margin: 0 0.4rem;
 }
 @media (max-width: 700px) {
   .hide-sm {

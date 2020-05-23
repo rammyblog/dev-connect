@@ -24,22 +24,22 @@ export function getUserProfileAPI() {
     .catch(handleError)
 }
 
-export function editProfileAPI(
-  {
-    professionalStatus,
-    companyName,
-    website,
-    location,
-    skills,
-    githubUsername,
-    bio,
-    twitterLink,
-    facebookLink,
-    instagramLink,
-    linkedinLink,
-  },
-  id
-) {
+export function editProfileAPI({
+  professionalStatus,
+  companyName,
+  website,
+  location,
+  skills,
+  githubUsername,
+  bio,
+  twitterLink,
+  facebookLink,
+  instagramLink,
+  linkedinLink,
+  id,
+}) {
+  console.log({ skills })
+
   const body = {
     bio: bio,
     current_job: companyName,
@@ -54,7 +54,7 @@ export function editProfileAPI(
     location: location,
   }
   return axios
-    .patch(baseUrl, body, {
+    .patch(baseUrl + id + "/", body, {
       headers: {
         Authorization: `Token ${localStorage.getItem("token")}`,
       },
