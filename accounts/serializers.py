@@ -29,7 +29,9 @@ class ProfileSerializer(CustomErrorSerializer,  serializers.ModelSerializer):
                   'twitter_link', 'website', 'instagram_link', 'github_link', 'professional_status', 'image_url', 'location')
 
     def get_full_name(self, value):
-        return value.full_name
+        print(value.user_full_name())
+
+        return value.user_full_name()
 
     def get_current_job(self, value):
         try:
@@ -63,6 +65,15 @@ class CustomRegisterSerializer(CustomErrorSerializer, RegisterSerializer):
     last_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
+
+    def get_cleaned_data(self):
+        return {
+            'username': self.validated_data.get('username', ''),
+            'password1': self.validated_data.get('password1', ''),
+            'email': self.validated_data.get('email', ''),
+            'first_name': self.validated_data.get('first_name', ''),
+            'last_name': self.validated_data.get('last_name', '')
+        }
 
 
 class CustomLoginSerializer(CustomErrorSerializer, LoginSerializer):
