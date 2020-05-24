@@ -15,8 +15,6 @@ const ProfilesLoaded = (Component) => {
 
     const loadProfilesFromDb = useCallback(async () => {
       setloading(true)
-      console.log("hekk")
-
       dispatch(loadProfiles())
       dispatch(loadEducations())
       dispatch(loadExperiences())
@@ -35,15 +33,7 @@ const ProfilesLoaded = (Component) => {
       }
     }, [])
 
-    return (
-      <>
-        {currentState.profiles.profiles.length > 0 ? (
-          <Component {...props} />
-        ) : (
-          <p>Loadin</p>
-        )}
-      </>
-    )
+    return <>{!loading ? <Component {...props} /> : <p>Loadin</p>}</>
   }
 }
 

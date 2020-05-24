@@ -14,11 +14,11 @@ class EditableTagGroup extends React.Component {
     this.setState({ tags: this.props.skills })
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.skills.length < this.state.tags) {
-  //     this.props.handleTagChange(this.state.tags)
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (prevProps.skills.length < this.props.skills) {
+      this.props.handleTagChange(this.state.tags)
+    }
+  }
 
   handleClose = (removedTag) => {
     const tags = this.state.tags.filter((tag) => tag !== removedTag)

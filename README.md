@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/38fa29d3-20a1-4c2e-9add-7fa2bda5de5b/deploy-status)](https://app.netlify.com/sites/devconnectz/deploys)
+
 # Redux Thunk example
 
 This example shows how to integrate Redux and Redux Thunk in Next.js.
