@@ -17,12 +17,16 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
   }, [])
 
   const { userProfile } = profiles
-
-  const [skills, setSkills] = useState(profiles.skills || [])
+  let profileSkills
+  try {
+    profileSkills = userProfile[0].skills
+  } catch (error) {
+    profileSkills = []
+  }
+  const [skills, setSkills] = useState(profileSkills)
 
   const handleTagChange = (tags) => {
     setSkills(tags)
-    console.log({ skills }, "kfk")
   }
 
   return (

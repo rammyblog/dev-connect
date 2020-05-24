@@ -13,9 +13,9 @@ function UserDashboard({
   profile,
   loadUserProfile,
 }) {
-  const fetchData = useCallback(async () => {
-    await loadUserExperiencesRecords()
-    await loadUserEducationsRecords()
+  const fetchData = useCallback(() => {
+    loadUserExperiencesRecords()
+    loadUserEducationsRecords()
     if (profile.userProfile.length <= 0) {
       loadUserProfile()
     }
@@ -24,11 +24,9 @@ function UserDashboard({
   useEffect(() => {
     fetchData()
   }, [])
-  // console.log(loading)
 
   const { loading: experienceLoading, userExperiences } = experiences
   const { loading: educationLoading, userEducations } = educations
-  console.log(profile)
   const { userProfile } = profile
   return (
     <>
@@ -38,7 +36,9 @@ function UserDashboard({
 
           <p className="lead">
             <i className="fas fa-user"></i>Welcome{" "}
-            {userProfile.full_name ? userProfile.full_name : ""}
+            {userProfile.map((profile, id) => (
+              <span key={id}>{profile.full_name}</span>
+            ))}
           </p>
 
           <div className="dash-buttons">

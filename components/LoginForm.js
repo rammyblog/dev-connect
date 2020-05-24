@@ -28,56 +28,58 @@ function LoginForm({ authLogin, auth }) {
   }
   return (
     <>
-      <h1 className="large text-primary">Sign In</h1>
-      {error ? (
-        <Alert
-          message={response}
-          class_name={"alert-danger"}
-          show={alertShow}
-          toggleShow={toggleShow}
-        />
-      ) : null}
-
-      <p className="lead">
-        <i className="fas fa-user"></i> Sign in into Your Account
-      </p>
-
-      <form onSubmit={handleSubmit} className="form">
-        <div className="form-group">
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="Email Address"
-            value={values.email}
-            onChange={handleChange}
+      <section className="container">
+        <h1 className="large text-primary">Sign In</h1>
+        {error ? (
+          <Alert
+            message={response}
+            class_name={"alert-danger"}
+            show={alertShow}
+            toggleShow={toggleShow}
           />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            minLength="8"
-            name="password"
-            required
-            onChange={handleChange}
-            value={values.password}
-          />
-        </div>
-        {loading ? (
-          <button class="btn btn-primary">
-            <Loading />
-          </button>
-        ) : (
-          <input type="submit" value="Login" className="btn btn-primary" />
-        )}
-      </form>
-      <p className="my-1">
-        Don't have an account?{" "}
-        <Link href="/register">
-          <a>Sign up</a>
-        </Link>
-      </p>
+        ) : null}
+
+        <p className="lead">
+          <i className="fas fa-user"></i> Sign in into Your Account
+        </p>
+
+        <form onSubmit={handleSubmit} className="form">
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Email Address"
+              value={values.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              minLength="8"
+              name="password"
+              required
+              onChange={handleChange}
+              value={values.password}
+            />
+          </div>
+          {loading ? (
+            <button class="btn btn-primary">
+              <Loading />
+            </button>
+          ) : (
+            <input type="submit" value="Login" className="btn btn-primary" />
+          )}
+        </form>
+        <p className="my-1">
+          Don't have an account?{" "}
+          <Link href="/register">
+            <a>Sign up</a>
+          </Link>
+        </p>
+      </section>
     </>
   )
 }

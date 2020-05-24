@@ -60,7 +60,7 @@ export const authRegister = (
         localStorage.setItem("expirationDate", expirationDate)
         localStorage.setItem("email", email)
         dispatch(authSuccess(token, email))
-        Router.push("/profile")
+        Router.push("/edit-profile")
       })
       .catch((error) => {
         console.log(error)

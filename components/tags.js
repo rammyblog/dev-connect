@@ -3,7 +3,7 @@ import { PlusOutlined } from "@ant-design/icons"
 
 class EditableTagGroup extends React.Component {
   state = {
-    tags: [],
+    tags: this.props.skills,
     inputVisible: false,
     inputValue: "",
     editInputIndex: -1,
@@ -11,19 +11,19 @@ class EditableTagGroup extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.state.tags, this.props.skills)
+
     this.setState({ tags: this.props.skills })
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.skills.length < this.props.skills) {
+    if (prevProps.skills.length !== this.state.tags.length) {
       this.props.handleTagChange(this.state.tags)
     }
   }
 
   handleClose = (removedTag) => {
     const tags = this.state.tags.filter((tag) => tag !== removedTag)
-
-    console.log(tags)
     this.setState({ tags })
   }
 
