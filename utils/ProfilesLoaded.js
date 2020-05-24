@@ -9,6 +9,8 @@ import { useStore, useDispatch } from "react-redux"
 const ProfilesLoaded = (Component) => {
   return function LoadAllProfiles(props) {
     const [loading, setloading] = useState(false)
+    const [error, setError] = useState(false)
+
     const store = useStore()
     const currentState = store.getState()
     const dispatch = useDispatch()
@@ -23,8 +25,6 @@ const ProfilesLoaded = (Component) => {
     }, [dispatch])
 
     useEffect(() => {
-      console.log(currentState.profiles.profiles)
-
       if (
         currentState.profiles.profiles &&
         currentState.profiles.profiles.length <= 0

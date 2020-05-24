@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { authLogin } from "../redux/auth/authActions"
 import Alert from "./presentational/alert"
@@ -8,7 +8,7 @@ import Link from "next/link"
 import { PrivateRoute } from "../utils/PrivateRoute"
 
 function LoginForm({ authLogin, auth }) {
-  const { error, response, loading, token } = auth
+  const { error, response, loading } = auth
 
   const [alertShow, setalertShow] = useState(true)
 
@@ -21,10 +21,15 @@ function LoginForm({ authLogin, auth }) {
     password: "",
   })
 
+  useEffect(() => {
+    console.log({ error }, "useEffect")
+    setalertShow(error)
+  }, [error])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     authLogin(values.email, values.password)
-    setalertShow(error)
+    console.log({ error }, "oo")
   }
   return (
     <>

@@ -26,11 +26,6 @@ export const profileReducer = (
       }
 
     case types.EDIT_PROFILE:
-      // const profileState = tempState.map(
-      //   (state) => state.find((profile) => profile.id == payload.id) || profile
-      // )
-      console.log({ payload })
-
       return {
         ...state,
         loading: false,

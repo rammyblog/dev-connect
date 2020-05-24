@@ -12,6 +12,13 @@ export function loginUser(email, password) {
     .catch(handleError)
 }
 
+export function logoutUserAPI() {
+  return axios
+    .post(baseUrl + "/logout/")
+    .then(handleResponse)
+    .catch(handleError)
+}
+
 export function registerUser(
   first_name,
   last_name,

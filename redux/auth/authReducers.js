@@ -6,7 +6,6 @@ const authInitialState = {
   token: null,
   error: null,
   loading: false,
-  email: null,
   response: null,
 }
 
@@ -19,8 +18,15 @@ export const authReducer = (state = authInitialState, { type, payload }) => {
         ...state,
         error: false,
         loading: false,
-        token: payload.token,
-        email: payload.email,
+        token: payload,
+      }
+
+    case types.AUTH_LOGOUT:
+      return {
+        error: false,
+        response: null,
+        loading: false,
+        token: null,
       }
 
     case types.AUTH_FAIL:

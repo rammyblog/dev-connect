@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { loadUserEducationsRecords } from "../redux/education/educationActions"
 import { loadUserExperiencesRecords } from "../redux/experience/experienceActions"
 import { loadUserProfile } from "../redux/profile/profileActions"
+import CheckUserState from "../utils/AuthState"
 
 function UserDashboard({
   loadUserEducationsRecords,
@@ -144,6 +145,7 @@ function mapStateToProps(state) {
     experiences: state.experience,
     educations: state.education,
     profile: state.profiles,
+    isAuthenticated: state.token !== null,
   }
 }
 

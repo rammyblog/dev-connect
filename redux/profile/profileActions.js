@@ -5,6 +5,11 @@ import {
 } from "../../api/profileApi"
 import * as types from "./profileTypes"
 import Router from "next/router"
+import {
+  apiCallError,
+  beginApiCall,
+  apiCallSuccess,
+} from "../apiStatus/apiActions"
 
 export function loadProfileStart() {
   return { type: types.LOAD_PROFILE_START }
@@ -24,48 +29,49 @@ export function loadUserProfileSucccess(profile) {
 
 export function loadProfiles() {
   return function (dispatch) {
-    console.log("calling")
-
+    dispatch(beginApiCall())
     dispatch(loadProfileStart())
     return getProfile()
       .then((profiles) => {
-        console.log(profiles.data)
-
         dispatch(loadProfileSuccess(profiles.data))
+        dispatch(apiCallSuccess())
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }
 
 export function loadUserProfile() {
   return function (dispatch) {
+    dispatch(beginApiCall())
+
     dispatch(loadProfileStart())
     return getUserProfileAPI()
       .then((profile) => {
         dispatch(loadUserProfileSucccess(profile.data))
+        dispatch(apiCallSuccess())
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }
 
 export function editProfileDispatch(values) {
   return function (dispatch) {
+    dispatch(beginApiCall())
+
     return editProfileAPI(values)
       .then((profile) => {
-        console.log(profile.data)
-
         dispatch(editProfileSuccess(profile.data))
+        dispatch(apiCallSuccess())
         Router.push("/dashboard")
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        console.log(error)
+
+        dispatch(apiCallError(error))
       })
   }
 }

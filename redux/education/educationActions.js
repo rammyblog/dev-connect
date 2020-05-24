@@ -5,6 +5,7 @@ import {
 } from "../../api/educationApi"
 import * as types from "./educationTypes"
 import Router from "next/router"
+import { apiCallError } from "../apiStatus/apiActions"
 
 export function loadEducationStart() {
   return { type: types.LOAD_EDUCATION_START }
@@ -51,8 +52,7 @@ export function addEducationDispatch(
         Router.push("/dashboard")
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }
@@ -65,8 +65,7 @@ export function loadEducations() {
         dispatch(loadEducationSuccess(education.data))
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }
@@ -79,8 +78,7 @@ export function loadUserEducationsRecords() {
         dispatch(loadUserEducations(education.data))
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }

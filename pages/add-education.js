@@ -1,10 +1,12 @@
 import React from "react"
 import AddEducationForm from "../components/education/AddEducationForm"
 
-export default function add_education() {
+function add_education() {
   return (
     <>
       <AddEducationForm />
     </>
   )
 }
+
+export default add_education

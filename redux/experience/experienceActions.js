@@ -6,6 +6,7 @@ import {
 import * as types from "./experienceTypes"
 import Router from "next/router"
 import { loadUserProfileEducations } from "../education/educationActions"
+import { apiCallError } from "../apiStatus/apiActions"
 
 export function loadExperienceStart() {
   return { type: types.LOAD_EXPERIENCE_START }
@@ -52,8 +53,7 @@ export function addExperienceDispatch(
         Router.push("/dashboard")
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }
@@ -66,8 +66,7 @@ export function loadExperiences() {
         dispatch(loadExperienceSuccess(experience.data))
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }
@@ -80,8 +79,7 @@ export function loadUserExperiencesRecords() {
         dispatch(loadUserExperiences(education.data))
       })
       .catch((error) => {
-        // dispatch(apiCallError(error))
-        throw error
+        dispatch(apiCallError(error))
       })
   }
 }

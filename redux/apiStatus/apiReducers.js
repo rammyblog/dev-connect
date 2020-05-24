@@ -1,24 +1,19 @@
 import * as types from "./apiTypes"
 
-//import * as types from "../actions/actionTypes"
-
-function actionTypeEndInSuccess(type) {
-  return type.substring(type.length - 8) === "_SUCCESS"
-}
-
-const apiInititalState = {
+const initialState = {
   apiCallsInProgress: 0,
 }
 
-export function apiCallStatusReducer(
-  state = apiInititalState.apiCallsInProgress,
+export default function apiCallStatusReducer(
+  state = initialState.apiCallsInProgress,
   action
 ) {
-  if (
-    action.type === types.API_LOAD_ERROR ||
-    actionTypeEndInSuccess(action.type)
-  ) {
+  if (action.type == types.BEGIN_API_CALL) {
+    return state + 1
+  } else if (action.type === types.API_CALL_SUCCESS) {
     return state - 1
+  } else if (action.type === types.API_CALL_ERROR) {
+    return (state = -1)
   }
 
   return state
