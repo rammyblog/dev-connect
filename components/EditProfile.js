@@ -64,6 +64,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                 return errors
               }}
               onSubmit={(values, { setSubmitting }) => {
+                e.preventDefault()
                 values.skills = skills
                 console.log(values)
                 console.log(skills)

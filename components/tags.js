@@ -30,6 +30,7 @@ class EditableTagGroup extends React.Component {
   }
 
   handleInputChange = (e) => {
+    e.preventDefault()
     if (e.target.value.slice(-1) === ",") {
       this.setState({ inputValue: e.target.value.replace(",", "") })
       this.handleInputConfirm(e)
@@ -158,7 +159,7 @@ class EditableTagGroup extends React.Component {
             value={inputValue}
             onChange={this.handleInputChange}
             // onBlur={this.handleInputConfirm}
-            // onPressEnter={this.handleInputConfirm}
+            onPressEnter={this.handleInputConfirm}
             // onKeyUp={this.handleInputConfirm}
           />
         )}
