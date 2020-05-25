@@ -32,7 +32,7 @@ class EditableTagGroup extends React.Component {
   }
 
   handleInputChange = (e) => {
-    this.setState({ inputValue: e.target.value })
+    this.setState({ inputValue: e.target.value.replace(/,/g, "") })
   }
 
   handleInputConfirm = (e) => {
@@ -47,9 +47,22 @@ class EditableTagGroup extends React.Component {
         inputVisible: false,
         inputValue: "",
       })
-
-      console.log(this.state.tags)
+      // this.makeChanges()
     }
+    // this.makeChanges()
+  }
+
+  makeChanges = () => {
+    const { inputValue } = this.state
+    let { tags } = this.state
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      tags = [...tags, inputValue]
+    }
+    this.setState({
+      tags,
+      inputVisible: false,
+      inputValue: "",
+    })
   }
 
   handleEditInputChange = (e) => {
@@ -146,8 +159,8 @@ class EditableTagGroup extends React.Component {
             value={inputValue}
             onChange={this.handleInputChange}
             onBlur={this.handleInputConfirm}
-            // onPressEnter={this.handleInputConfirm}
-            onKeyDown={this.handleInputConfirm}
+            onPressEnter={this.handleInputConfirm}
+            onKeyUp={this.handleInputConfirm}
           />
         )}
         {!inputVisible && (
