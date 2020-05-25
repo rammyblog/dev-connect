@@ -29,8 +29,6 @@ class ProfileSerializer(CustomErrorSerializer,  serializers.ModelSerializer):
                   'twitter_link', 'website', 'instagram_link', 'github_link', 'professional_status', 'image_url', 'location')
 
     def get_full_name(self, value):
-        print(value.user_full_name())
-
         return value.user_full_name()
 
     def get_current_job(self, value):
@@ -47,7 +45,7 @@ class ExperienceSerializer(DateValidation, CustomErrorSerializer, serializers.Mo
 
     class Meta:
         model = Experience
-        fields = ['company_name', 'job_title', 'location',
+        fields = ['id', 'company_name', 'job_title', 'location',
                   'from_date', 'to_date', 'is_current', 'desc', 'profile_id']
 
 
@@ -55,7 +53,7 @@ class EducationSerializer(DateValidation, CustomErrorSerializer,  serializers.Mo
 
     class Meta:
         model = Education
-        fields = ['sch_name', 'from_date', 'to_date',
+        fields = ['id', 'sch_name', 'from_date', 'to_date',
                   'is_current', 'desc', 'field_of_study', 'degree', 'profile_id']
 
 

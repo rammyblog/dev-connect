@@ -57,7 +57,7 @@ class Profile(models.Model):
         return self.user.username
 
     def user_full_name(self):
-        print(self.user)
+
         return f'{self.user.first_name} {self.user.last_name}'
 
 

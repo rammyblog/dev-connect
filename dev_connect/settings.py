@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'accounts.apps.AccountsConfig',
+    'posts',
 
 
     # Third party apps
