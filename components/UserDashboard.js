@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect } from "react"
 import Link from "next/link"
 import { connect } from "react-redux"
-import { loadUserEducationsRecords } from "../redux/education/educationActions"
-import { loadUserExperiencesRecords } from "../redux/experience/experienceActions"
+import {
+  loadUserEducationsRecords,
+  deleteUserEducation,
+} from "../redux/education/educationActions"
+import {
+  loadUserExperiencesRecords,
+  deleteUserExperience,
+} from "../redux/experience/experienceActions"
 import { loadUserProfile } from "../redux/profile/profileActions"
-import CheckUserState from "../utils/AuthState"
 
 function UserDashboard({
   loadUserEducationsRecords,
@@ -13,6 +18,8 @@ function UserDashboard({
   experiences,
   profile,
   loadUserProfile,
+  deleteUserEducation,
+  deleteUserExperience,
 }) {
   const fetchData = useCallback(() => {
     loadUserExperiencesRecords()
@@ -86,7 +93,12 @@ function UserDashboard({
                           : experience.to_date}
                       </td>
                       <td>
-                        <button className="btn btn-danger">Delete</button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteUserExperience(experience.id)}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -115,7 +127,12 @@ function UserDashboard({
                         {education.is_current ? " Current" : education.to_date}
                       </td>
                       <td>
-                        <button className="btn btn-danger">Delete</button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteUserEducation(education.id)}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -138,6 +155,8 @@ const mapDispatchToProps = {
   loadUserEducationsRecords,
   loadUserExperiencesRecords,
   loadUserProfile,
+  deleteUserEducation,
+  deleteUserExperience,
 }
 
 function mapStateToProps(state) {

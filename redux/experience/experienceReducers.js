@@ -41,6 +41,17 @@ export const experienceReducer = (
         ),
         loading: false,
       }
+
+    case types.DELETE_USER_EXPERIENCE:
+      const newUserExperience = state.userExperiences.filter(
+        (experience) => experience.id !== payload
+      )
+
+      return {
+        ...state,
+        userExperiences: newUserExperience,
+        loading: false,
+      }
     default:
       return state
   }

@@ -6,8 +6,18 @@ import "../styles/styles.min.css"
 import Navbar from "../components/Navbar"
 import { authCheckState } from "../redux/auth/authActions"
 import { connect } from "react-redux"
-import ErrorState from "../utils/ErrorState"
+
 import ErrorPage from "./_error"
+
+import Router from "next/router"
+import Head from "next/head"
+import NProgress from "nprogress"
+
+Router.events.on("routeChangeStart", (url) => {
+  NProgress.start()
+})
+Router.events.on("routeChangeComplete", () => NProgress.done())
+Router.events.on("routeChangeError", () => NProgress.done())
 
 class MyApp extends App {
   componentDidMount() {
@@ -24,6 +34,10 @@ class MyApp extends App {
 
     return (
       <Provider store={store}>
+        <Head>
+          {/* Import CSS for nprogress */}
+          <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+        </Head>
         <Navbar />
         <div className="">
           {this.props.api < 0 ? (

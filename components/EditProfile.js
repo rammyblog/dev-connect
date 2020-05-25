@@ -28,6 +28,13 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
   const handleTagChange = (tags) => {
     setSkills(tags)
   }
+  function onKeyDown(keyEvent) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      console.log(keyEvent)
+
+      keyEvent.preventDefault()
+    }
+  }
 
   return (
     <>
@@ -63,19 +70,18 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
 
                 return errors
               }}
-              onSubmit={(values, { setSubmitting }) => {
-                e.preventDefault()
+              onSubmit={(values, actions) => {
+                console.log(actions)
+
                 values.skills = skills
-                console.log(values)
-                console.log(skills)
 
                 editProfileDispatch(values)
 
-                setSubmitting(false)
+                actions.setSubmitting(false)
               }}
             >
-              {({ isSubmitting, values }) => (
-                <Form className="form">
+              {({ isSubmitting, values, handleSubmit }) => (
+                <Form className="form" onSubmit={handleSubmit}>
                   <Field
                     component="select"
                     className="form-group"
@@ -194,7 +200,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     />
                     <ErrorMessage name="linkedinLink" component="div" />
                   </div>
-                  <div className="form-group social-input">
+                  <div className=" social-input">
                     <i className="fab fa-instagram fa-2x"></i>
 
                     <Field
@@ -213,9 +219,9 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                   >
                     Submit
                   </button>
-                  <a className="btn my-1" href="dashboard.html">
-                    Go Back
-                  </a>
+                  <Link href="/dashboard">
+                    <a className="btn my-1">Go Back</a>
+                  </Link>
                 </Form>
               )}
             </Formik>

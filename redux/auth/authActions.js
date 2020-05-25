@@ -7,7 +7,7 @@ export const authStart = () => {
   return { type: types.AUTH_START }
 }
 
-export const authSuccess = (token, email) => {
+export const authSuccess = (token) => {
   return { type: types.AUTH_SUCCESS, payload: token }
 }
 
@@ -38,7 +38,7 @@ export const logout = () => {
       .catch((error) => {
         const error_msg = error.error_msg || error.message
 
-        dispatch(apiCallError(error))
+        // dispatch(apiCallError(error))
         dispatch(authFail(true, error_msg))
         // throw error
       })
@@ -60,8 +60,7 @@ export const authLogin = (email, password) => {
       })
       .catch((error) => {
         const error_msg = error.error_msg || error.message
-
-        dispatch(apiCallError(error))
+        // dispatch(apiCallError(error))
         dispatch(authFail(true, error_msg))
         // throw error
       })
@@ -90,8 +89,8 @@ export const authRegister = (
         Router.push("/edit-profile")
       })
       .catch((error) => {
-        console.log(error)
-        dispatch(apiCallError(error))
+        // console.log(error)
+        // dispatch(apiCallError(error))
         dispatch(authFail(true, error.error_msg))
         // throw error
       })
@@ -109,7 +108,6 @@ export const checkAuthTimeout = (expirationTime) => {
 export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token")
-    // const email = localStorage.getItem("email")
 
     if (token === undefined) {
       dispatch(logout())

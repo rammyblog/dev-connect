@@ -6,14 +6,23 @@ import Loading from "./presentational/loading"
 import { useForm } from "../hooks/useForm"
 import Link from "next/link"
 import { PrivateRoute } from "../utils/PrivateRoute"
+import { useDispatch } from "react-redux"
+
+import Router from "next/router"
 
 function LoginForm({ authLogin, auth }) {
   const { error, response, loading } = auth
+  const dispatch = useDispatch()
 
   const [alertShow, setalertShow] = useState(true)
+  const routeChangeStart = (url) => {
+    dispatch({ type: "AUTH_RESET" })
+  }
+
+  Router.events.on("routeChangeStart", routeChangeStart)
 
   const toggleShow = () => {
-    setalertShow(!alertShow)
+    setalertShow(value)
   }
 
   const [values, handleChange] = useForm({
@@ -22,14 +31,12 @@ function LoginForm({ authLogin, auth }) {
   })
 
   useEffect(() => {
-    console.log({ error }, "useEffect")
     setalertShow(error)
   }, [error])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     authLogin(values.email, values.password)
-    console.log({ error }, "oo")
   }
   return (
     <>
@@ -71,7 +78,7 @@ function LoginForm({ authLogin, auth }) {
             />
           </div>
           {loading ? (
-            <button class="btn btn-primary">
+            <button className="btn btn-primary">
               <Loading />
             </button>
           ) : (

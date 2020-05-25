@@ -2,7 +2,7 @@ import Link from "next/link"
 import { connect } from "react-redux"
 import { logout } from "../redux/auth/authActions"
 import { useDispatch } from "react-redux"
-import { useCallback } from "react"
+
 function Navbar({ isAuthenticated }) {
   const dispatch = useDispatch()
 

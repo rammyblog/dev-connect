@@ -7,11 +7,19 @@ import Link from "next/link"
 import { spiltFullName } from "./utils"
 
 import { useForm } from "../hooks/useForm"
+import Router from "next/router"
+import { useDispatch } from "react-redux"
 
 function RegistrationForm({ authLogin, auth, authRegister }) {
   const { error, response, loading } = auth
+  const dispatch = useDispatch()
 
   const [alertShow, setalertShow] = useState(true)
+  const routeChangeStart = (url) => {
+    dispatch({ type: "AUTH_RESET" })
+  }
+
+  Router.events.on("routeChangeStart", routeChangeStart)
 
   const toggleShow = () => {
     setalertShow(false)

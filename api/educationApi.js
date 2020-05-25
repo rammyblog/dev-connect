@@ -58,8 +58,13 @@ export function loadUserEducationApi() {
     .catch(handleError)
 }
 
-// "sch_name": "Olabisi",
-// "from_date": "2020-05-15",
-// "to_date": "2020-06-18",
-// "is_current": false,
-// "desc": "fhffhhfhfhfh"
+export function deleteUserEducationApi(id) {
+  return axios
+    .delete(baseUrl + id, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(handleResponse)
+    .catch(handleError)
+}

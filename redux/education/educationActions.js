@@ -2,6 +2,7 @@ import {
   addEducationApi,
   loadEducationApi,
   loadUserEducationApi,
+  deleteUserEducationApi,
 } from "../../api/educationApi"
 import * as types from "./educationTypes"
 import Router from "next/router"
@@ -25,6 +26,10 @@ export function loadUserProfileEducations(id) {
 
 export function addEducation(education) {
   return { type: types.ADD_EDUCATION, payload: education }
+}
+
+export function deleteEducationSuccess(id) {
+  return { type: types.DELETE_USER_EDUCATION, payload: id }
 }
 
 export function addEducationDispatch(
@@ -87,5 +92,19 @@ export function getUserProfileEducations(id) {
   return function (dispatch) {
     dispatch(loadEducationStart())
     return dispatch(loadUserProfileEducations(id))
+  }
+}
+
+export function deleteUserEducation(id) {
+  return function (dispatch) {
+    dispatch(deleteEducationSuccess(id))
+    return deleteUserEducationApi(id)
+      .then((res) => {
+        // dispatch()
+        return res
+      })
+      .catch((error) => {
+        dispatch(apiCallError(error))
+      })
   }
 }

@@ -2,6 +2,7 @@ import {
   addExperienceApi,
   loadExperienceApi,
   loadUserExperienceApi,
+  deleteUserExperienceApi,
 } from "../../api/experienceApi"
 import * as types from "./experienceTypes"
 import Router from "next/router"
@@ -26,6 +27,10 @@ export function loadUserProfileExperiences(id) {
 
 export function addExperience(experience) {
   return { type: types.ADD_EXPERIENCE, payload: experience }
+}
+
+export function deleteExperienceSuccess(id) {
+  return { type: types.DELETE_USER_EXPERIENCE, payload: id }
 }
 
 export function addExperienceDispatch(
@@ -88,5 +93,18 @@ export function getUserProfileExperiences(id) {
   return function (dispatch) {
     dispatch(loadExperienceStart())
     return dispatch(loadUserProfileExperiences(id))
+  }
+}
+
+export function deleteUserExperience(id) {
+  return function (dispatch) {
+    dispatch(deleteExperienceSuccess(id))
+    return deleteUserExperienceApi(id)
+      .then((res) => {
+        return res
+      })
+      .catch((error) => {
+        dispatch(apiCallError(error))
+      })
   }
 }

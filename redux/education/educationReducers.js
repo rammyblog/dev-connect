@@ -41,6 +41,17 @@ export const educationReducer = (
         ),
         loading: false,
       }
+
+    case types.DELETE_USER_EDUCATION:
+      const newUserEducation = state.userEducations.filter(
+        (education) => education.id !== payload
+      )
+
+      return {
+        ...state,
+        userEducations: newUserEducation,
+        loading: false,
+      }
     default:
       return state
   }

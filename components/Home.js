@@ -1,6 +1,7 @@
 import Link from "next/link"
+import { connect } from "react-redux"
 
-export default function Home() {
+function Home({ isAuthenticated }) {
   return (
     <>
       <section className="landing">
@@ -12,13 +13,23 @@ export default function Home() {
               other developers{" "}
             </p>
             <div className="buttons">
-              <Link href="/register">
-                <a className="btn btn-primary">Register</a>
-              </Link>
+              {!isAuthenticated ? (
+                <>
+                  <Link href="/register">
+                    <a className="btn btn-primary">Register</a>
+                  </Link>
 
-              <Link href="/login">
-                <a className="btn ">Login</a>
-              </Link>
+                  <Link href="/login">
+                    <a className="btn ">Login</a>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/profiles">
+                    <a className="btn ">Browse Profiles</a>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -26,3 +37,11 @@ export default function Home() {
     </>
   )
 }
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.token !== null,
+  }
+}
+
+export default connect(mapStateToProps)(Home)
