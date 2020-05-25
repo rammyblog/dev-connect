@@ -11,8 +11,6 @@ class EditableTagGroup extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state.tags, this.props.skills)
-
     this.setState({ tags: this.props.skills })
   }
 
@@ -32,24 +30,25 @@ class EditableTagGroup extends React.Component {
   }
 
   handleInputChange = (e) => {
-    this.setState({ inputValue: e.target.value.replace(/,/g, "") })
+    if (e.target.value.slice(-1) === ",") {
+      this.setState({ inputValue: e.target.value.replace(",", "") })
+      this.handleInputConfirm(e)
+    } else {
+      this.setState({ inputValue: e.target.value })
+    }
   }
 
   handleInputConfirm = (e) => {
-    if (e.keyCode === 188 || e.keyCode === 13) {
-      const { inputValue } = this.state
-      let { tags } = this.state
-      if (inputValue && tags.indexOf(inputValue) === -1) {
-        tags = [...tags, inputValue]
-      }
-      this.setState({
-        tags,
-        inputVisible: false,
-        inputValue: "",
-      })
-      // this.makeChanges()
+    const { inputValue } = this.state
+    let { tags } = this.state
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      tags = [...tags, inputValue]
     }
-    // this.makeChanges()
+    this.setState({
+      tags,
+      inputVisible: false,
+      inputValue: "",
+    })
   }
 
   makeChanges = () => {
@@ -158,9 +157,9 @@ class EditableTagGroup extends React.Component {
             className="tag-input"
             value={inputValue}
             onChange={this.handleInputChange}
-            onBlur={this.handleInputConfirm}
-            onPressEnter={this.handleInputConfirm}
-            onKeyUp={this.handleInputConfirm}
+            // onBlur={this.handleInputConfirm}
+            // onPressEnter={this.handleInputConfirm}
+            // onKeyUp={this.handleInputConfirm}
           />
         )}
         {!inputVisible && (

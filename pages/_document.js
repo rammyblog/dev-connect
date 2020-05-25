@@ -18,7 +18,16 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head></Head>
+        <Head>
+          <script
+            src="https://kit.fontawesome.com/833e0cadb7.js"
+            crossOrigin="anonymous"
+          ></script>
+          <link
+            href="https://fonts.googleapis.com/css?family=Raleway"
+            rel="stylesheet"
+          ></link>
+        </Head>
         <body>
           <Main />
           <NextScript />

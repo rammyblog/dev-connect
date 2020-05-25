@@ -14,8 +14,4 @@ class Index extends PureComponent {
   }
 }
 
-const mapDispatchToProps = {
-  loadProfiles,
-}
-
-export default connect(null, mapDispatchToProps)(Index)
+export default Index
