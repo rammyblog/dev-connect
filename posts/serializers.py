@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Comment, Post
+from accounts.models import Profile
+from django.shortcuts import get_object_or_404
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -14,7 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
     def get_full_name(self, obj):
         return obj.get_user_full_name()
 
-    def image(self, obj):
+    def get_image(self, obj):
         return obj.get_user_image()
 
 
@@ -30,5 +32,5 @@ class CommentSerializer(serializers.ModelSerializer):
     def get_full_name(self, obj):
         return obj.get_user_full_name()
 
-    def image(self, obj):
+    def get_image(self, obj):
         return obj.get_user_image()
