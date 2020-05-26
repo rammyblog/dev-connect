@@ -38,7 +38,9 @@ function Navbar({ isAuthenticated }) {
               </Link>
             </li>
             <li>
-              <a href="/">Posts</a>
+              <Link href="/posts">
+                <a>Posts</a>
+              </Link>
             </li>
             <li>
               <Link href="/dashboard">

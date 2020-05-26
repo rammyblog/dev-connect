@@ -4,6 +4,7 @@ import { profileReducer } from "./profile/profileReducers"
 import apiCallStatusReducer from "./apiStatus/apiReducers"
 import { educationReducer } from "./education/educationReducers"
 import { experienceReducer } from "./experience/experienceReducers"
+import { postReducer } from "./post/postReducers"
 
 // COMBINED REDUCERS
 const reducers = {
@@ -12,6 +13,7 @@ const reducers = {
   api: apiCallStatusReducer,
   education: educationReducer,
   experience: experienceReducer,
+  posts: postReducer,
 }
 
 export default combineReducers(reducers)
