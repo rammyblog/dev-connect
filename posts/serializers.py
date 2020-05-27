@@ -66,7 +66,7 @@ class CommentSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
 
     class Meta:
-        model = Post
+        model = Comment
         fields = ['id', 'user', 'content', 'post',
                   'full_name', 'image']
 
