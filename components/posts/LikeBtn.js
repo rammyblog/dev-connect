@@ -12,7 +12,7 @@ function LikeBtn({ count, userLikes, user, id, handleLikeClick, postId }) {
     <>
       <button
         className={userLikes.includes(postId) ? active : inactive}
-        onClick={() => handleLikeClick(id, user)}
+        onClick={() => handleLikeClick(postId)}
       >
         <i className="fas fa-thumbs-up"></i> <span>{count}</span>
       </button>

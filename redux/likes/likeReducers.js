@@ -19,14 +19,19 @@ export const likesReducer = (state = initialLikeState, { type, payload }) => {
       }
 
     case types.ADD_LIKE:
-      console.log(payload)
+      const newLikeState = state.likes.filter(
+        (like) => like.id === payload.data.id
+      )
+
+      newLikeState[0].likes += 1
 
       return {
         ...state,
         loading: false,
-        likes: [payload.data],
+        likes: state.likes.map(
+          (obj) => newLikeState.find((o) => o.id === obj.id) || obj
+        ),
         userPostsLiked: payload.user_likes,
-        // userPostsLiked:
       }
 
     case types.REMOVE_LIKE:

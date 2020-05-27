@@ -25,9 +25,26 @@ export function addDislikeDispatch(context) {
     dispatch(loadDislikeStart())
 
     return addRemoveDislikesApi(context)
-      .then((like) => {
+      .then((dislike) => {
         dispatch(addDislikeSuccess(dislike.data))
         // Router.push("/dashboard")
+      })
+      .catch((error) => {
+        console.log(error, "here")
+
+        dispatch(apiCallError(error))
+      })
+  }
+}
+
+export function removeDislikeDispatch(context) {
+  context.action = "remove"
+  return function (dispatch) {
+    dispatch(removeDislikeSuccess(context.id))
+    return addRemoveDislikesApi(context)
+      .then((res) => {
+        // dispatch()
+        return res
       })
       .catch((error) => {
         dispatch(apiCallError(error))
@@ -45,19 +62,5 @@ export function loadDislikeDispatch() {
       .catch((error) => {
         dispatch(apiCallError(error))
       })
-  }
-}
-
-export function removeDislikeDispatch(context) {
-  return function (dispatch) {
-    dispatch(removeDislikeSuccess(context.id, context.user))
-    // return addRemoveDislikesApi(context)
-    //   .then((res) => {
-    //     // dispatch()
-    //     return res
-    //   })
-    //   .catch((error) => {
-    //     dispatch(apiCallError(error))
-    //   })
   }
 }

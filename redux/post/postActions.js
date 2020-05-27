@@ -6,6 +6,8 @@ import {
 import * as types from "./postTypes"
 import Router from "next/router"
 import { apiCallError, apiCallSuccess } from "../apiStatus/apiActions"
+import { loadLikesDispatch } from "../likes/likesActions"
+import { loadDislikeDispatch } from "../dislikes/dislikesActions"
 
 export function loadPostStart() {
   return { type: types.POST_API_START }
@@ -30,6 +32,9 @@ export function addPostDispatch(content) {
     return addPostApi(content)
       .then((post) => {
         dispatch(addPostSuccess(post.data))
+        dispatch(loadLikesDispatch())
+        dispatch(loadDislikeDispatch())
+
         // Router.push("/dashboard")
       })
       .catch((error) => {

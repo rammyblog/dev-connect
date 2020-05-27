@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import LikeBtn from "./LikeBtn"
 import DislikeBtn from "./DislikeBtn"
@@ -8,33 +8,60 @@ function SinglePost({
   likes,
   dislikes,
   userLikes,
-  userDisLikes,
-
+  userDislikes,
   handleRemoveDislike,
   handleRemoveLike,
   handleAddLike,
   handleAddDislike,
 }) {
   const { id, content, full_name, image, user } = post
+  console.log({ likes })
+  // const [likeID, setlikeID] = useState(null)
+  // const [dislikeID, setdislikeID] = useState(null)
 
-  const handleDislikeClick = (likeId, user) => {
-    if (userDislikes.includes(id)) {
-      handleRemoveDislike(likeId)
-    } else if (!userLikes.includes(id)) {
-      userLikes.includes(id)
-        ? handleRemoveLike(likeId)
-        : handleAddDislike(likeId)
-    }
-    handleRemoveDislike(likeId)
+  const getLikeIdFromPostId = (postID) => {
+    return likes.filter((like) => like.post === postID)[0].id
   }
 
-  const handleLikeClick = (likeId, user) => {
+  const getDislikeIdFromPostId = (postID) => {
+    return dislikes.filter((dislike) => dislike.post === postID)[0].id
+  }
+  // const updateLikeID = (id) => {
+  //   setlikeID(id)
+  // }
+
+  // const updateDislikeID = (id) => {
+  //   setdislikeID(id)
+  // }
+
+  const handleDislikeClick = (postId) => {
+    const likeID = getLikeIdFromPostId(postId)
+    const dislikeID = getDislikeIdFromPostId(postId)
+
+    if (userDislikes.includes(id)) {
+      handleRemoveDislike(dislikeID)
+    } else {
+      if (userLikes.includes(id)) {
+        handleRemoveLike(likeID)
+        handleAddDislike(dislikeID)
+      } else {
+        handleAddDislike(dislikeID)
+      }
+    }
+  }
+
+  const handleLikeClick = (postId) => {
+    const likeID = getLikeIdFromPostId(postId)
+    const dislikeID = getDislikeIdFromPostId(postId)
     if (userLikes.includes(id)) {
-      handleRemoveLike(likeId)
-    } else if (!userLikes.includes(id)) {
-      userDislikes.includes(id)
-        ? handleRemoveDislike(likeId)
-        : handleAddLike(likeId)
+      handleRemoveLike(likeID)
+    } else {
+      if (userDislikes.includes(id)) {
+        handleRemoveDislike(dislikeID)
+        handleAddLike(likeID)
+      } else {
+        handleAddLike(likeID)
+      }
     }
   }
 
@@ -74,7 +101,7 @@ function SinglePost({
               user={user}
               id={dislike.id}
               postId={id}
-              userDislikes={userDisLikes}
+              userDislikes={userDislikes}
             />
           ) : null
         )}

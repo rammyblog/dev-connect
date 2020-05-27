@@ -39,19 +39,6 @@ export function addLikeDispatch(context) {
   }
 }
 
-export function loadLikesDispatch() {
-  return function (dispatch) {
-    dispatch(loadLikesStart())
-    return getLikesApi()
-      .then((like) => {
-        dispatch(loadLikesSuccess(like.data))
-      })
-      .catch((error) => {
-        dispatch(apiCallError(error))
-      })
-  }
-}
-
 export function removeLikesDispatch(context) {
   context.action = "remove"
   return function (dispatch) {
@@ -60,6 +47,19 @@ export function removeLikesDispatch(context) {
       .then((res) => {
         // dispatch()
         return res
+      })
+      .catch((error) => {
+        dispatch(apiCallError(error))
+      })
+  }
+}
+
+export function loadLikesDispatch() {
+  return function (dispatch) {
+    dispatch(loadLikesStart())
+    return getLikesApi()
+      .then((like) => {
+        dispatch(loadLikesSuccess(like.data))
       })
       .catch((error) => {
         dispatch(apiCallError(error))

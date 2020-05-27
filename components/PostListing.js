@@ -31,10 +31,8 @@ function PostListing({
   const { posts: allPosts } = post
   const { likes: allLikes, userPostsLiked: userLikes } = likes
 
+  const { dislikes: allDislikes, userPostsDislikes: userDislikes } = dislikes
   console.log(dislikes)
-
-  const { dislikes: allDislikes, userPostsDislikes: userDisLikes } = dislikes
-  console.log(userDisLikes)
 
   const getPosts = useCallback(() => {
     dispatch(loadPostsDispatch)
@@ -84,7 +82,7 @@ function PostListing({
                       likes={allLikes}
                       userLikes={userLikes}
                       dislikes={allDislikes}
-                      userDisLikes={userDisLikes}
+                      userDislikes={userDislikes}
                       handleRemoveDislike={handleRemoveDislike}
                       handleRemoveLike={handleRemoveLike}
                       handleAddLike={handleAddLike}

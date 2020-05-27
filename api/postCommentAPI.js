@@ -83,7 +83,7 @@ export function removeLikesApi({ post, user_id, id }) {
   }
 
   return axios
-    .patch(baseUrl + "likes/" + id, body, {
+    .patch(baseUrl + "likes/" + id + "/", body, {
       headers: {
         Authorization: `Token ${localStorage.getItem("token")}`,
       },
@@ -102,7 +102,7 @@ export function addRemoveDislikesApi({ post, user_id, id, action }) {
   }
 
   return axios
-    .patch(baseUrl + "dislikes" + id, body, {
+    .patch(baseUrl + "dislikes/" + +id + "/", body, {
       headers: {
         Authorization: `Token ${localStorage.getItem("token")}`,
       },
