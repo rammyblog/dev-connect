@@ -58,15 +58,15 @@ export function getLikesApi() {
     .catch(handleError)
 }
 
-export function addLikesApi({ post, user_id, id }) {
+export function addRemoveLikesApi({ id, action }) {
+  // console.log(post, user_id, id)
+
   let body = {
-    post: post,
-    user: user_id,
-    action: "add",
+    action: action,
   }
 
   return axios
-    .patch(baseUrl + "likes/" + id, body, {
+    .patch(baseUrl + "likes/" + id + "/", body, {
       headers: {
         Authorization: `Token ${localStorage.getItem("token")}`,
       },

@@ -15,11 +15,12 @@ export function addDislikeSuccess(dislike) {
   return { type: types.ADD_DISLIKE, payload: dislike }
 }
 
-export function removeLikeSuccess(id) {
+export function removeDislikeSuccess(id) {
   return { type: types.REMOVE_DISLIKE, payload: id }
 }
 
-export function addRemoveDislikeDispatch(context) {
+export function addDislikeDispatch(context) {
+  context.action = "add"
   return function (dispatch) {
     dispatch(loadDislikeStart())
 
@@ -49,7 +50,7 @@ export function loadDislikeDispatch() {
 
 export function removeDislikeDispatch(context) {
   return function (dispatch) {
-    dispatch(removeLikeSuccess(context.id, context.user))
+    dispatch(removeDislikeSuccess(context.id, context.user))
     // return addRemoveDislikesApi(context)
     //   .then((res) => {
     //     // dispatch()

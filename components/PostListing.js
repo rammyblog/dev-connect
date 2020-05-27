@@ -4,11 +4,15 @@ import SinglePost from "./posts/SinglePost"
 import { connect } from "react-redux"
 import { useDispatch } from "react-redux"
 import { loadPostsDispatch } from "../redux/post/postActions"
-import { loadLikesDispatch } from "../redux/likes/likesActions"
+import {
+  loadLikesDispatch,
+  removeLikesDispatch,
+  addLikeDispatch,
+} from "../redux/likes/likesActions"
 import {
   loadDislikeDispatch,
-  addRemoveDislikeDispatch,
   removeDislikeDispatch,
+  addDislikeDispatch,
 } from "../redux/dislikes/dislikesActions"
 
 function PostListing({
@@ -19,11 +23,18 @@ function PostListing({
   loadLikesDispatch,
   loadDislikeDispatch,
   removeDislikeDispatch,
+  removeLikesDispatch,
+  addLikeDispatch,
+  addDislikeDispatch,
 }) {
   const dispatch = useDispatch()
   const { posts: allPosts } = post
-  const { likes: allLikes } = likes
-  const { dislikes: allDislikes } = dislikes
+  const { likes: allLikes, userPostsLiked: userLikes } = likes
+
+  console.log(dislikes)
+
+  const { dislikes: allDislikes, userPostsDislikes: userDisLikes } = dislikes
+  console.log(userDisLikes)
 
   const getPosts = useCallback(() => {
     dispatch(loadPostsDispatch)
@@ -35,8 +46,20 @@ function PostListing({
     getPosts()
   }, [])
 
-  const handleRemoveDislike = (id, user) => {
-    removeDislikeDispatch({ id, user })
+  const handleRemoveDislike = (id) => {
+    removeDislikeDispatch({ id })
+  }
+
+  const handleAddDislike = (id) => {
+    addDislikeDispatch({ id })
+  }
+
+  const handleRemoveLike = (id) => {
+    removeLikesDispatch({ id })
+  }
+
+  const handleAddLike = (id) => {
+    addLikeDispatch({ id })
   }
 
   return (
@@ -59,8 +82,13 @@ function PostListing({
                       key={id}
                       post={post}
                       likes={allLikes}
+                      userLikes={userLikes}
                       dislikes={allDislikes}
+                      userDisLikes={userDisLikes}
                       handleRemoveDislike={handleRemoveDislike}
+                      handleRemoveLike={handleRemoveLike}
+                      handleAddLike={handleAddLike}
+                      handleAddDislike={handleAddDislike}
                     />
                   </div>
                 </>
@@ -80,6 +108,9 @@ const mapDispatchToProps = {
   loadLikesDispatch,
   loadDislikeDispatch,
   removeDislikeDispatch,
+  removeLikesDispatch,
+  addLikeDispatch,
+  addDislikeDispatch,
 }
 
 function mapStateToProps(state) {

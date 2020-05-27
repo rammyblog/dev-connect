@@ -1,5 +1,5 @@
 import {
-  addLikesApi,
+  addRemoveLikesApi,
   getLikesApi,
   removeLikesApi,
 } from "../../api/postCommentAPI"
@@ -24,10 +24,11 @@ export function removeLikeSuccess(id) {
 }
 
 export function addLikeDispatch(context) {
+  context.action = "add"
   return function (dispatch) {
     dispatch(loadLikesStart())
 
-    return addLikesApi(context)
+    return addRemoveLikesApi(context)
       .then((like) => {
         dispatch(addLikesSuccess(like.data))
         // Router.push("/dashboard")
@@ -52,9 +53,10 @@ export function loadLikesDispatch() {
 }
 
 export function removeLikesDispatch(context) {
+  context.action = "remove"
   return function (dispatch) {
     dispatch(removeLikeSuccess(context.id))
-    return removeLikesApi(context)
+    return addRemoveLikesApi(context)
       .then((res) => {
         // dispatch()
         return res

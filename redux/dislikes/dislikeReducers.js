@@ -21,14 +21,21 @@ export const dislikesReducer = (
       //   return { post: finalArray }
       // })
       // console.log(usersDislikePosts)
+      console.log(payload)
 
-      return { ...state, loading: false, dislikes: payload }
+      return {
+        ...state,
+        loading: false,
+        dislikes: [payload.data],
+        userPostsDislikes: payload.user_dislikes,
+      }
 
     case types.ADD_DISLIKE:
       return {
         ...state,
         loading: false,
-        dislikes: [payload, ...state.dislikes],
+        dislikes: payload.data,
+        userPostsDislikes: payload.user_dislikes,
       }
 
     case types.REMOVE_DISLIKE:

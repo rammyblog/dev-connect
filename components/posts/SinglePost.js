@@ -2,14 +2,40 @@ import React from "react"
 import Link from "next/link"
 import LikeBtn from "./LikeBtn"
 import DislikeBtn from "./DislikeBtn"
-import { connect } from "react-redux"
 
-function SinglePost({ post, likes, dislikes, handleRemoveDislike }) {
+function SinglePost({
+  post,
+  likes,
+  dislikes,
+  userLikes,
+  userDisLikes,
+
+  handleRemoveDislike,
+  handleRemoveLike,
+  handleAddLike,
+  handleAddDislike,
+}) {
   const { id, content, full_name, image, user } = post
 
-  const handleDislikeClick = (id, user) => {
-    console.log(id)
-    handleRemoveDislike(id, user)
+  const handleDislikeClick = (likeId, user) => {
+    if (userDislikes.includes(id)) {
+      handleRemoveDislike(likeId)
+    } else if (!userLikes.includes(id)) {
+      userLikes.includes(id)
+        ? handleRemoveLike(likeId)
+        : handleAddDislike(likeId)
+    }
+    handleRemoveDislike(likeId)
+  }
+
+  const handleLikeClick = (likeId, user) => {
+    if (userLikes.includes(id)) {
+      handleRemoveLike(likeId)
+    } else if (!userLikes.includes(id)) {
+      userDislikes.includes(id)
+        ? handleRemoveDislike(likeId)
+        : handleAddLike(likeId)
+    }
   }
 
   return (
@@ -31,7 +57,10 @@ function SinglePost({ post, likes, dislikes, handleRemoveDislike }) {
               key={idx}
               count={like.likes}
               user={user}
-              userLiked={like.user}
+              userLikes={userLikes}
+              postId={id}
+              handleLikeClick={handleLikeClick}
+              id={like.id}
             />
           ) : null
         )}
@@ -44,6 +73,8 @@ function SinglePost({ post, likes, dislikes, handleRemoveDislike }) {
               count={dislike.dislikes}
               user={user}
               id={dislike.id}
+              postId={id}
+              userDislikes={userDisLikes}
             />
           ) : null
         )}
