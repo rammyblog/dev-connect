@@ -29,7 +29,7 @@ class LikesModel(models.Model):
     post = models.ForeignKey(
         Post, related_name='post_likes', on_delete=models.CASCADE)
     user = models.ManyToManyField(
-        Profile, related_name='user_likes')
+        Profile, related_name='user_likes', blank=True)
     likes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -40,7 +40,7 @@ class DislikesModel(models.Model):
     post = models.ForeignKey(
         Post, related_name='post_dislikes', on_delete=models.CASCADE)
     user = models.ManyToManyField(
-        Profile)
+        Profile, related_name='user_dislikes', blank=True)
 
     dislikes = models.PositiveIntegerField(default=0)
 

@@ -25,9 +25,6 @@ class ProfileViewSet(PermissionMixins, ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
-        response_data = serializer.data
-        # response_data['full_name'] =
-        # print(response_data)
         return Response(serializer.data)
 
 

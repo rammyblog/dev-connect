@@ -12,18 +12,25 @@ class CustomProfileSerailzer(serializers.ModelSerializer):
 
 
 class LikeAndDislikeMixins(serializers.Serializer):
-    def update(self, instance,  validated_data):
+    def update(self, instance, validated_data):
+        print(validated_data, 'testing')
         users = validated_data.pop('user')
 
         # # if you want to update other fields
         instance = super().update(instance, validated_data)
 
         # now update users
-        if users is not None:
+        if len(users) > 0:
             for user in users:
-                instance.user.add(user)
-            instance.save()
+                # print()
+                if len(instance.user.all()) == 0:
+                    instance.user.add(user)
+                else:
+                    instance.user.remove(user)
 
+        else:
+            instance.user.clear()
+        instance.save()
         return instance
 
 
@@ -72,15 +79,42 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class LikesSerializer(LikeAndDislikeMixins, serializers.ModelSerializer):
     user = CustomProfileSerailzer(many=True)
+    # user_likes = serializers.SerializerMethodField()
 
     class Meta:
         model = LikesModel
         fields = ['id', 'user', 'likes', 'post']
 
+    # def get_user_likes(self, obj):
+    #     request = self.context['request']
+    #     auth_user = get_object_or_404(
+    #         Profile, user=request.user)
+    #     pk = getattr(auth_user, 'pk', False)
+
+    #     output = []
+    #     for user in obj.user.all():
+    #         if user.id == pk:
+    #             output.append(obj.post.pk)
+
+    #     return output
+
 
 class DislikesSerializer(LikeAndDislikeMixins, serializers.ModelSerializer):
     user = CustomProfileSerailzer(many=True)
+    # user_dislikes = serializers.SerializerMethodField()
 
     class Meta:
         model = DislikesModel
         fields = ['id', 'user', 'dislikes', 'post']
+
+    # def get_user_dislikes(self, obj):
+    #     request = self.context['request']
+    #     auth_user = get_object_or_404(
+    #         Profile, user=request.user)
+    #     pk = getattr(auth_user, 'pk', False)
+    #     output = []
+    #     for user in obj.user.all():
+    #         if user.id == pk:
+    #             output.append(obj.post.pk)
+
+    #     return output
