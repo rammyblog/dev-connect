@@ -6,6 +6,7 @@ import { educationReducer } from "./education/educationReducers"
 import { experienceReducer } from "./experience/experienceReducers"
 import { postReducer } from "./post/postReducers"
 import { likesReducer } from "./likes/likeReducers"
+import { commentReducer } from "./comments/CommentReducer"
 import { dislikesReducer } from "./dislikes/dislikeReducers"
 
 // COMBINED REDUCERS
@@ -18,6 +19,7 @@ const reducers = {
   posts: postReducer,
   likes: likesReducer,
   dislikes: dislikesReducer,
+  comments: commentReducer,
 }
 
 export default combineReducers(reducers)

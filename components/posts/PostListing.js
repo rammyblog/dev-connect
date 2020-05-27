@@ -1,19 +1,18 @@
 import React, { useEffect, useCallback } from "react"
-import PostForm from "./posts/PostForm"
-import SinglePost from "./posts/SinglePost"
-import { connect } from "react-redux"
-import { useDispatch } from "react-redux"
-import { loadPostsDispatch } from "../redux/post/postActions"
+import PostForm from "./PostForm"
+import SinglePost from "./SinglePost"
+import { connect, useDispatch } from "react-redux"
+import { loadPostsDispatch } from "../../redux/post/postActions"
 import {
   loadLikesDispatch,
   removeLikesDispatch,
   addLikeDispatch,
-} from "../redux/likes/likesActions"
+} from "../../redux/likes/likesActions"
 import {
   loadDislikeDispatch,
   removeDislikeDispatch,
   addDislikeDispatch,
-} from "../redux/dislikes/dislikesActions"
+} from "../../redux/dislikes/dislikesActions"
 
 function PostListing({
   post,
@@ -92,7 +91,7 @@ function PostListing({
                 </>
               ))
             ) : (
-              <p>Nothing</p>
+              <p>Nothing To See Here</p>
             )}
           </div>
         </div>

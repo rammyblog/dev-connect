@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import Link from "next/link"
 import LikeBtn from "./LikeBtn"
 import DislikeBtn from "./DislikeBtn"
@@ -69,7 +68,7 @@ function SinglePost({
     <>
       <div>
         <Link href="/profile/[id]" as={`/profile/${user}`}>
-          <a href="profile.html">
+          <a>
             <img src={image} alt="" className="round-img" />
             <h4>{full_name}</h4>
           </a>
@@ -105,10 +104,9 @@ function SinglePost({
             />
           ) : null
         )}
-
-        <a href="post.html" className="btn btn-primary">
-          Discussion
-        </a>
+        <Link href="/post/[id]" as={`/post/${id}`}>
+          <a className="btn btn-primary">Discussion</a>
+        </Link>
       </div>
     </>
   )

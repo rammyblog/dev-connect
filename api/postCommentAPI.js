@@ -2,6 +2,7 @@ import { handleResponse, handleError } from "./apiUtils"
 import axios from "axios"
 const baseUrl = process.env.BASE_URL + "api/"
 
+// POST
 export function addPostApi(content) {
   let body = {
     content: content,
@@ -114,6 +115,50 @@ export function addRemoveDislikesApi({ post, user_id, id, action }) {
 export function getDislikesApi() {
   return axios
     .get(baseUrl + "dislikes", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(handleResponse)
+    .catch(handleError)
+}
+
+// COMMENTS
+
+export function addCommentApi(content, post_id) {
+  let body = {
+    content: content,
+    post: post_id,
+  }
+
+  return axios
+    .post(baseUrl + "comment/", body, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+    .then(handleResponse)
+    .catch(handleError)
+}
+
+export function loadCommentsApi(post_id) {
+  return axios
+    .get(
+      baseUrl + `comment/?post=${post_id}`,
+
+      {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+    .then(handleResponse)
+    .catch(handleError)
+}
+
+export function deleteCommentApi(id) {
+  return axios
+    .delete(baseUrl + id, {
       headers: {
         Authorization: `Token ${localStorage.getItem("token")}`,
       },

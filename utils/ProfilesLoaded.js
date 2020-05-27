@@ -5,6 +5,7 @@ import { loadEducations } from "../redux/education/educationActions"
 import { loadExperiences } from "../redux/experience/experienceActions"
 
 import { useStore, useDispatch } from "react-redux"
+import LoadingPage from "../components/presentational/LoadingPage"
 
 const ProfilesLoaded = (Component) => {
   return function LoadAllProfiles(props) {
@@ -33,7 +34,7 @@ const ProfilesLoaded = (Component) => {
       }
     }, [])
 
-    return <>{!loading ? <Component {...props} /> : <p>Loadin</p>}</>
+    return <>{!loading ? <Component {...props} /> : <LoadingPage />}</>
   }
 }
 

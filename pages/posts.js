@@ -1,4 +1,4 @@
-import PostListing from "../components/PostListing"
+import PostListing from "../components/posts/PostListing"
 import { PrivateRoute } from "../utils/PrivateRoute"
 
 function posts() {
