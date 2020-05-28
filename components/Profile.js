@@ -75,8 +75,8 @@ function Profile({
           <Link href="/profiles">
             <a className="btn">Back To Profiles</a>
           </Link>
-          {userProfile.map((profile) => (
-            <div className="profile-grid my-1">
+          {userProfile.map((profile, idx) => (
+            <div className="profile-grid my-1" key={idx}>
               {/* <!-- Top --> */}
               <div className="profile-top bg-primary p-2">
                 <img

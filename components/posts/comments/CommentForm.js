@@ -19,6 +19,9 @@ function CommentForm({ addCommentDispatch, post_id }) {
     const { content } = values
     e.preventDefault()
     addCommentDispatch(content, post_id)
+    e.target.name = "content"
+    e.target.value = ""
+    handleChange(e)
   }
 
   return (

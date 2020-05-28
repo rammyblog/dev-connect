@@ -20,6 +20,9 @@ function PostForm({ addPostDispatch, error }) {
 
     e.preventDefault()
     addPostDispatch(content)
+    e.target.name = "content"
+    e.target.value = ""
+    handleChange(e)
     setalertShow(error)
   }
 
