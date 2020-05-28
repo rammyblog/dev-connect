@@ -1,9 +1,13 @@
 
 from rest_framework.serializers import Serializer, ValidationError
 from rest_framework.utils.serializer_helpers import ReturnDict
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from .models import Profile
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
 
 
 class CustomErrorSerializer(Serializer):
@@ -61,3 +65,15 @@ class PermissionMixins(viewsets.ViewSet):
         else:
             permission_classes = [IsOwnerOrReadOnly]
         return [permission() for permission in permission_classes]
+
+
+class CustomCreateMixin(ModelViewSet):
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        profile = get_object_or_404(Profile, user=self.request.user)
+        data['profile_id'] = profile.pk
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

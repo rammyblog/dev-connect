@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from .serializers import EducationSerializer, ProfileSerializer, ExperienceSerializer
 from .models import Profile, Education, Experience
 from django.shortcuts import get_object_or_404
-from .mixins import PermissionMixins
+from .mixins import PermissionMixins, CustomCreateMixin
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -28,7 +28,7 @@ class ProfileViewSet(PermissionMixins, ModelViewSet):
         return Response(serializer.data)
 
 
-class ExperienceViewSet(PermissionMixins, ModelViewSet):
+class ExperienceViewSet(CustomCreateMixin, PermissionMixins, ModelViewSet):
     serializer_class = ExperienceSerializer
     queryset = Experience.objects.all()
 
@@ -36,7 +36,7 @@ class ExperienceViewSet(PermissionMixins, ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class EducationViewSet(PermissionMixins, ModelViewSet):
+class EducationViewSet(CustomCreateMixin, PermissionMixins, ModelViewSet):
     serializer_class = EducationSerializer
     queryset = Education.objects.all()
 
