@@ -1,0 +1,17 @@
+## netlify.toml
+
+[build]
+  publish = "out"
+  command = "next build && next export"
+
+[[redirects]]
+  from = "/post/*"
+  to = "/post/[id].html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/profile/*"
+  to = "/profile/[id].html"
+  status = 200
+  force = true

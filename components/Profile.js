@@ -4,7 +4,10 @@ import { loadProfiles } from "../redux/profile/profileActions"
 import ProfilesLoaded from "../utils/ProfilesLoaded"
 import Link from "next/link"
 
-import { getUserProfileEducations } from "../redux/education/educationActions"
+import {
+  getUserProfileEducations,
+  loadUserEducationsRecords,
+} from "../redux/education/educationActions"
 import { getUserProfileExperiences } from "../redux/experience/experienceActions"
 import SingleExperience from "./experience/singleExperience"
 import SingleEducation from "./education/SingleEducation"
@@ -22,7 +25,7 @@ function Profile({
 }) {
   useEffect(() => {
     getProfile()
-  }, [profiles])
+  }, [])
 
   const [githubData, setgithubData] = useState(null)
 
@@ -54,18 +57,16 @@ function Profile({
     const profileDetails = singleProfile.find((obj) => obj.id == id)
 
     if (profileDetails) {
-      console.log(profileDetails)
-
       fetchGithubRepos(profileDetails.github_link)
     }
+
+    // if (userExperiences.length < 0) {
+    // }
   }
 
   const [userProfile, setUserProfile] = useState(null)
   const { userExperiences } = experiences
   const { userEducations } = educations
-
-  console.log(userExperiences)
-  console.log(userEducations)
 
   return (
     <>

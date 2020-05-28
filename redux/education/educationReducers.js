@@ -21,16 +21,14 @@ export const educationReducer = (
       return {
         ...state,
         loading: false,
-        educations: payload,
-        ...state.educations,
+        educations: [payload, ...state.educations],
       }
 
     case types.LOAD_USER_EDUCATIONS:
       return {
         ...state,
         loading: false,
-        userEducations: payload,
-        ...state.userEducations,
+        userEducations: [payload, ...state.userEducations],
       }
 
     case types.LOAD_USER_PROFILE_EDUCATIONS:

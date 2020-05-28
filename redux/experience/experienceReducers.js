@@ -21,16 +21,14 @@ export const experienceReducer = (
       return {
         ...state,
         loading: false,
-        experiences: payload,
-        ...state.experiences,
+        experiences: [payload, ...state.experiences],
       }
 
     case types.LOAD_USER_EXPERIENCES:
       return {
         ...state,
         loading: false,
-        userExperiences: payload,
-        ...state.experiences,
+        userExperiences: [payload, ...state.experiences],
       }
 
     case types.LOAD_USER_PROFILE_EXPERIENCES:
