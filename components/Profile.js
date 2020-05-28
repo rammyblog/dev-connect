@@ -64,6 +64,9 @@ function Profile({
   const { userExperiences } = experiences
   const { userEducations } = educations
 
+  console.log(userExperiences)
+  console.log(userEducations)
+
   return (
     <>
       {userProfile ? (
