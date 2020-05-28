@@ -28,7 +28,7 @@ function Profile({
 
   const fetchGithubRepos = useCallback(async (github_username) => {
     if (github_username) {
-      const BASE_URL = `http://api.github.com/users/${github_username}/repos`
+      const BASE_URL = `https://api.github.com/users/${github_username}/repos`
 
       try {
         const res = await axios.get(BASE_URL, {
