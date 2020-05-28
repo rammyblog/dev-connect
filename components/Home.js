@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { connect } from "react-redux"
 
-function Home({ isAuthenticated }) {
+function Home({ isAuthenticated }, props) {
   return (
     <>
       <section className="landing">

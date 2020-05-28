@@ -33,7 +33,10 @@ export const logout = () => {
         localStorage.removeItem("expirationDate")
         localStorage.removeItem("email")
         dispatch(authLogoutAction())
-        Router.push("/login")
+
+        if (window.location.href !== process.env.WEB_APP_URL) {
+          Router.push("/login")
+        }
       })
       .catch((error) => {
         const error_msg = error.error_msg || error.message

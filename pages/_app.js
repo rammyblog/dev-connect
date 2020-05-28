@@ -9,7 +9,7 @@ import { connect } from "react-redux"
 
 import ErrorPage from "./_error"
 
-import Router from "next/router"
+import Router, { useRouter } from "next/router"
 import Head from "next/head"
 import NProgress from "nprogress"
 
@@ -24,13 +24,10 @@ class MyApp extends App {
     this.props.store.dispatch(authCheckState())
   }
 
-  componentDidUpdate(prevProps) {
-    console.log(prevProps.api)
-  }
   render() {
     const { Component, pageProps, store } = this.props
     const errorText =
-      "Please check your internet connection and reload this page"
+      "Sorry, Something unexpected happened and reload this page"
 
     return (
       <Provider store={store}>

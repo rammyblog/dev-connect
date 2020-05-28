@@ -5,9 +5,7 @@ import Alert from "./presentational/alert"
 import Loading from "./presentational/loading"
 import { useForm } from "../hooks/useForm"
 import Link from "next/link"
-import { PrivateRoute } from "../utils/PrivateRoute"
 import { useDispatch } from "react-redux"
-
 import Router from "next/router"
 
 function LoginForm({ authLogin, auth }) {

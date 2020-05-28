@@ -25,7 +25,7 @@ function Profiles({ profiles }) {
                   <div className="profile bg-light" key={idx}>
                     <img src={profile.image_url} className="round-img" alt="" />
                     <div>
-                      <h2>John Doe</h2>
+                      <h2>{profile.full_name}</h2>
 
                       {profile.current_job ? (
                         <p>
