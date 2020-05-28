@@ -42,7 +42,6 @@ export function editProfileAPI({
 
   const body = {
     bio: bio,
-    current_job: companyName,
     skills: skills,
     facebook_link: facebookLink,
     linkedin_link: linkedinLink,

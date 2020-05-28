@@ -30,7 +30,7 @@ export const profileReducer = (
         ...state,
         loading: false,
         // profiles: profileState,
-        userProfile: [payload, ...state.userProfile],
+        userProfile: [payload],
       }
     default:
       return state

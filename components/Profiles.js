@@ -15,7 +15,7 @@ function Profiles({ profiles }) {
             <h1 className="large text-primary">Developer</h1>
 
             <p className="lead">
-              <i className="fab fa-connectdevelop"></i>Browse and Connect with
+              <i className="fab fa-connectdevelop"></i> Browse and Connect with
               developers
             </p>
 
@@ -42,18 +42,13 @@ function Profiles({ profiles }) {
                       </Link>
                     </div>
                     <ul>
-                      {profile.skills ? (
-                        profile.skills.map((skill, idx) => (
-                          <li className="text-primary" key={idx}>
-                            <i className="fas fa-check"></i>
-                            {skill}
-                          </li>
-                        ))
-                      ) : (
-                        <li className="text-primary">
-                          <i className="fas fa-check"></i>Null
-                        </li>
-                      )}
+                      {profile.skills
+                        ? profile.skills.map((skill, idx) => (
+                            <li className="text-primary" key={idx}>
+                              <i className="fas fa-check" /> {skill}
+                            </li>
+                          ))
+                        : null}
                     </ul>
                   </div>
                 ))

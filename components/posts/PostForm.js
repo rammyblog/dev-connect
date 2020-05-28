@@ -25,7 +25,7 @@ function PostForm({ addPostDispatch, error }) {
 
   return (
     <>
-      <div class="post-form-header bg-primary">
+      <div className="post-form-header bg-primary">
         {error ? (
           <Alert
             message={response}
@@ -36,7 +36,7 @@ function PostForm({ addPostDispatch, error }) {
         ) : null}
         <h3>Say Something</h3>
       </div>
-      <form class="form my-1" onSubmit={handleSubmit}>
+      <form className="form my-1" onSubmit={handleSubmit}>
         <textarea
           name="content"
           id=""
@@ -46,7 +46,7 @@ function PostForm({ addPostDispatch, error }) {
           value={values.content}
           onChange={handleChange}
         ></textarea>
-        <input type="submit" value="submit" class="btn btn-dark my-1" />
+        <input type="submit" value="submit" className="btn btn-dark my-1" />
       </form>
     </>
   )

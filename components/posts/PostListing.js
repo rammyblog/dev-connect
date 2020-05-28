@@ -31,7 +31,6 @@ function PostListing({
   const { likes: allLikes, userPostsLiked: userLikes } = likes
 
   const { dislikes: allDislikes, userPostsDislikes: userDislikes } = dislikes
-  console.log(dislikes)
 
   const getPosts = useCallback(() => {
     dispatch(loadPostsDispatch)
@@ -74,7 +73,7 @@ function PostListing({
             {allPosts && allPosts.length > 0 ? (
               allPosts.map((post, id) => (
                 <>
-                  <div className="post bg-white my-1">
+                  <div className="post bg-white my-1" key={id}>
                     <SinglePost
                       key={id}
                       post={post}

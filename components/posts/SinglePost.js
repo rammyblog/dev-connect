@@ -14,9 +14,6 @@ function SinglePost({
   handleAddDislike,
 }) {
   const { id, content, full_name, image, user } = post
-  console.log({ likes })
-  // const [likeID, setlikeID] = useState(null)
-  // const [dislikeID, setdislikeID] = useState(null)
 
   const getLikeIdFromPostId = (postID) => {
     return likes.filter((like) => like.post === postID)[0].id
@@ -25,13 +22,6 @@ function SinglePost({
   const getDislikeIdFromPostId = (postID) => {
     return dislikes.filter((dislike) => dislike.post === postID)[0].id
   }
-  // const updateLikeID = (id) => {
-  //   setlikeID(id)
-  // }
-
-  // const updateDislikeID = (id) => {
-  //   setdislikeID(id)
-  // }
 
   const handleDislikeClick = (postId) => {
     const likeID = getLikeIdFromPostId(postId)

@@ -20,7 +20,7 @@ function LoginForm({ authLogin, auth }) {
   Router.events.on("routeChangeStart", routeChangeStart)
 
   const toggleShow = () => {
-    setalertShow(value)
+    setalertShow(!alertShow)
   }
 
   const [values, handleChange] = useForm({

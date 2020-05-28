@@ -28,13 +28,6 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
   const handleTagChange = (tags) => {
     setSkills(tags)
   }
-  function onKeyDown(keyEvent) {
-    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
-      console.log(keyEvent)
-
-      keyEvent.preventDefault()
-    }
-  }
 
   return (
     <>
@@ -53,10 +46,10 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
               key={id}
               initialValues={{
                 professionalStatus: profile.professional_status,
-                companyName: profile.current_job || "",
+
                 website: profile.website || "",
                 location: profile.location || "",
-                // skills: profile.skills || [],
+
                 githubUsername: profile.github_link || "",
                 bio: profile.bio || "",
                 twitterLink: profile.twitter_link || "",
@@ -71,8 +64,6 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                 return errors
               }}
               onSubmit={(values, actions) => {
-                console.log(actions)
-
                 values.skills = skills
 
                 editProfileDispatch(values)
@@ -97,7 +88,9 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     <option value="Student or Learning">
                       Student or Learning
                     </option>
-                    <option value="Instructor">Instructor or Teacher</option>
+                    <option value="Instructor or Teacher">
+                      Instructor or Teacher
+                    </option>
                     <option value="Intern">Intern</option>
                     <option value="Other">Other</option>
                   </Field>
@@ -105,17 +98,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     Give us an idea of where you are at in your career
                   </small>
                   <ErrorMessage name="professionalStatus" component="div" />
-                  <Field
-                    type="text"
-                    className="form-group"
-                    placeholder="Company"
-                    name="companyName"
-                    required
-                  />
-                  <small className="form-text">
-                    Could be your own company or one you work for
-                  </small>
-                  <ErrorMessage name="companyName" component="div" />
+
                   <Field
                     type="text"
                     className="form-group"
@@ -136,12 +119,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     City & state suggested (eg. Boston, MA)
                   </small>
                   <ErrorMessage name="location" component="div" />
-                  {/* <Field
-                    type="text"
-                   
-                    placeholder="* Skills"
-                    name="skills"
-                  /> */}
+
                   <div className="form-group">
                     <EditableTagGroup
                       handleTagChange={handleTagChange}
@@ -154,6 +132,20 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     HTML,CSS,JavaScript,PHP)
                   </small>
                   <ErrorMessage name="skills" component="div" />
+
+                  <Field
+                    type="text"
+                    className="form-group"
+                    placeholder="Github username"
+                    name="githubUsername"
+                  />
+                  <small className="form-text">
+                    If you want your latest repos and a Github link, include
+                    your username
+                  </small>
+
+                  <ErrorMessage name="location" component="div" />
+
                   <Field
                     component="textarea"
                     className="form-group"
@@ -161,8 +153,12 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     name="bio"
                     cols="30"
                     rows="5"
+                    placeholder='A short bio of yourself"'
                     required
                   />
+                  <small className="form-text">
+                    Tell us a little about yourself
+                  </small>
                   <ErrorMessage name="bio" component="div" />
                   <div className="my-2">
                     <button type="button" className="btn btn-light">
@@ -173,7 +169,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                   <div className="social-input">
                     <i className="fab fa-facebook fa-2x"></i>
                     <Field
-                      type="text"
+                      type="url"
                       className="form-group social-input"
                       name="facebookLink"
                       placeholder="Facebook URL"
@@ -183,7 +179,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                   <div className="social-input">
                     <i className="fab fa-youtube fa-2x"></i>
                     <Field
-                      type="text"
+                      type="url"
                       className="social-input"
                       name="youtubeLink"
                       placeholder="YouTube URL"
@@ -193,7 +189,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                   <div className="social-input">
                     <i className="fab fa-linkedin  fa-2x"></i>
                     <Field
-                      type="text"
+                      type="url"
                       className="form-group social-input"
                       name="linkedinLink "
                       placeholder="Linkedin URL"
@@ -204,7 +200,7 @@ function EditProfile({ profiles, loadUserProfile, editProfileDispatch }) {
                     <i className="fab fa-instagram fa-2x"></i>
 
                     <Field
-                      type="text"
+                      type="url"
                       className="form-group social-input"
                       name="instagramLink"
                       placeholder="Instagram URL"

@@ -8,6 +8,9 @@ import { getUserProfileEducations } from "../redux/education/educationActions"
 import { getUserProfileExperiences } from "../redux/experience/experienceActions"
 import SingleExperience from "./experience/singleExperience"
 import SingleEducation from "./education/SingleEducation"
+import axios from "axios"
+import SingleGithubRepo from "./SingleGithubRepo"
+import LoadingPage from "./presentational/LoadingPage"
 
 function Profile({
   id,
@@ -21,6 +24,26 @@ function Profile({
     getProfile()
   }, [profiles])
 
+  const [githubData, setgithubData] = useState(null)
+
+  const fetchGithubRepos = useCallback(async (github_username) => {
+    if (github_username) {
+      const BASE_URL = `http://api.github.com/users/${github_username}/repos`
+
+      try {
+        const res = await axios.get(BASE_URL, {
+          params: {
+            client_id: process.env.GITHUB_CLIENT_ID,
+            client_secret: process.env.GITHUB_CLIENT_SECRET,
+            sort: "updated",
+          },
+        })
+        setgithubData(res.data.slice(0, 3))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }, [])
   const { profiles: allProfiles } = profiles
 
   const getProfile = () => {
@@ -28,6 +51,13 @@ function Profile({
     getUserProfileEducations(id)
     getUserProfileExperiences(id)
     setUserProfile(singleProfile)
+    const profileDetails = singleProfile.find((obj) => obj.id == id)
+
+    if (profileDetails) {
+      console.log(profileDetails)
+
+      fetchGithubRepos(profileDetails.github_link)
+    }
   }
 
   const [userProfile, setUserProfile] = useState(null)
@@ -129,71 +159,44 @@ function Profile({
 
               <div className="profile-github">
                 <h2 className="text-primary my-1">
-                  <i className="fab fa-github">Guthub Repos</i>
+                  <i className="fab fa-github"> Github Repos</i>
                 </h2>
-                <div className="repo bg-white my-1 p-1">
-                  <div>
-                    <h4>
-                      <a href="#">Repo one</a>
-                    </h4>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Eum, autem!
-                    </p>
+                {githubData && githubData.length > 0 ? (
+                  githubData.map((data, idx) => (
+                    <SingleGithubRepo data={data} key={idx} />
+                  ))
+                ) : (
+                  <div className="empty-github">
+                    <object
+                      data="../images/empty.svg"
+                      type="image/svg+xml"
+                    ></object>
+                    {/* <p>Nothing To see Here</p> */}
                   </div>
-                  <div>
-                    <ul>
-                      <li className="badge badge-primary">Stars: 44</li>
-                      <li className="badge badge-dark">Watchers: 20</li>
-                      <li className="badge badge-light">Forks: 24</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="repo bg-white my-1 p-1">
-                  <div>
-                    <h4>
-                      <a href="#">Repo Two</a>
-                    </h4>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Eum, autem!
-                    </p>
-                  </div>
-                  <div>
-                    <ul>
-                      <li className="badge badge-primary">Stars: 44</li>
-                      <li className="badge badge-dark">Watchers: 20</li>
-                      <li className="badge badge-light">Forks: 24</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="repo bg-white my-1 p-1">
-                  <div>
-                    <h4>
-                      <a href="#">Repo Three</a>
-                    </h4>
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Eum, autem!
-                    </p>
-                  </div>
-                  <div>
-                    <ul>
-                      <li className="badge badge-primary">Stars: 44</li>
-                      <li className="badge badge-dark">Watchers: 20</li>
-                      <li className="badge badge-light">Forks: 24</li>
-                    </ul>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           ))}
         </section>
       ) : (
-        <p>Loading</p>
+        <LoadingPage />
       )}
+      <style jsx>
+        {`
+          .empty-github {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            height: 21rem;
+          }
+
+          object {
+            width: 50%;
+          }
+        `}
+      </style>
     </>
   )
 }
