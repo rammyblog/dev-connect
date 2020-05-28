@@ -4,7 +4,7 @@ import requests
 
 def get_gravatar_image_url(email):
     # Set your variables here
-    default = "https://res.cloudinary.com/rammy/image/upload/ar_4:3,c_fill/c_scale,w_auto,dpr_auto/v1589578218/default_avatar.png"
+    default = "https://www.gravatar.com/avatar/5e8ad5373a9845922914fbbf9bb2e8e0?s=200"
     size = 200
     base_url = "https://www.gravatar.com/avatar/"
 

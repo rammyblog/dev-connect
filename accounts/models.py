@@ -38,7 +38,7 @@ class Profile(models.Model):
     twitter_link = models.URLField(null=True, blank=True)
     website = models.URLField(null=True, blank=True)
     instagram_link = models.URLField(null=True, blank=True)
-    github_link = models.URLField(null=True, blank=True)
+    github_link = models.CharField(null=True, blank=True, max_length=150)
     professional_status = models.CharField(
         max_length=21,
         choices=PROFESSIONAL_STATUS_CHOICES,
