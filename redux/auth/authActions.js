@@ -34,7 +34,14 @@ export const logout = () => {
         localStorage.removeItem("email")
         dispatch(authLogoutAction())
 
-        if (window.location.href !== process.env.WEB_APP_URL) {
+        const register_link = process.env.WEB_APP_URL + "register"
+
+        if (
+          !(
+            window.location.href !== process.env.WEB_APP_URL ||
+            window.location.href !== register_link
+          )
+        ) {
           Router.push("/login")
         }
       })

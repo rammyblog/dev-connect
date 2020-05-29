@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { connect } from "react-redux"
-import { authLogin } from "../redux/auth/authActions"
+import { authLogin, authCheckState } from "../redux/auth/authActions"
 import Alert from "./presentational/alert"
 import Loading from "./presentational/loading"
 import { useForm } from "../hooks/useForm"
@@ -8,12 +8,13 @@ import Link from "next/link"
 import { useDispatch } from "react-redux"
 import Router from "next/router"
 
-function LoginForm({ authLogin, auth }) {
+function LoginForm({ authLogin, auth, authCheckState }) {
   const { error, response, loading } = auth
   const dispatch = useDispatch()
 
   const [alertShow, setalertShow] = useState(true)
   const routeChangeStart = (url) => {
+    authCheckState()
     dispatch({ type: "AUTH_RESET" })
   }
 
@@ -96,6 +97,7 @@ function LoginForm({ authLogin, auth }) {
 
 const mapDispatchToProps = {
   authLogin,
+  authCheckState,
 }
 
 function mapStateToProps(state) {
