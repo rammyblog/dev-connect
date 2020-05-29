@@ -9,14 +9,15 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* <script
+          <script
             src="https://kit.fontawesome.com/833e0cadb7.js"
             crossOrigin="anonymous"
           ></script>
           <link
             href="https://fonts.googleapis.com/css?family=Raleway"
             rel="stylesheet"
-          ></link> */}
+          ></link>
+          <meta httpEquiv="content-language" content="en"></meta>
         </Head>
         <body>
           <Main />

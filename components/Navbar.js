@@ -3,21 +3,26 @@ import { connect } from "react-redux"
 import { logout } from "../redux/auth/authActions"
 import { useDispatch } from "react-redux"
 import Head from "next/head"
+import Router from "next/router"
 
 function Navbar({ isAuthenticated, user_id }) {
   const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    Router.push("/login")
+  }
 
   return (
     <>
       <Head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
         />
-        <meta name="description" content="Description" />
-        <meta name="keywords" content="Keywords" />
+
         <title>
           Developer Connector | Create Developer profile/portfolio, share posts
           and get help from other developers
@@ -162,10 +167,7 @@ function Navbar({ isAuthenticated, user_id }) {
                   </a>
                 </Link>
               </li>
-              <li
-                onClick={() => dispatch(logout())}
-                style={{ cursor: "pointer" }}
-              >
+              <li onClick={() => handleLogout()} style={{ cursor: "pointer" }}>
                 <a title="Logout">
                   <i className="fas fa-sign-out-alt"></i>
                   <span className="hide-sm">Logout</span>
@@ -186,7 +188,7 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
   return {
     isAuthenticated: state.auth.token !== null,
-    user_id: state.profiles.authUserId !== null,
+    user_id: state.profiles.authUserId,
   }
 }
 

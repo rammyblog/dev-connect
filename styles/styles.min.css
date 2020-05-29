@@ -704,7 +704,7 @@ img {
   }
 
   .header-logo-box {
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
   }
 }

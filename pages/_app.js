@@ -4,12 +4,12 @@ import App from "next/app"
 import withReduxStore from "../lib/with-redux-store"
 import "../styles/styles.min.css"
 import Navbar from "../components/Navbar"
-import { authCheckState } from "../redux/auth/authActions"
+import { authCheckState, logout } from "../redux/auth/authActions"
 import { connect } from "react-redux"
 
 import ErrorPage from "./_error"
 
-import Router, { useRouter } from "next/router"
+import Router from "next/router"
 import Head from "next/head"
 import NProgress from "nprogress"
 
@@ -23,6 +23,15 @@ class MyApp extends App {
   componentDidMount() {
     this.props.store.dispatch(authCheckState())
   }
+
+  // componentDidUpdate(prevProps, props) {
+  //   console.log(this.props.isAuthenticated, "fjfjfj")
+
+  //   if (!this.props.isAuthenticated) {
+  //     Router.push("/login")
+  //     // prevProps.store.dispatch(logout())
+  //   }
+  // }
 
   render() {
     const { Component, pageProps, store } = this.props
@@ -51,6 +60,7 @@ class MyApp extends App {
 function mapStateToProps(state) {
   return {
     api: state.api,
+    isAuthenticated: state.auth.token !== null,
   }
 }
 
