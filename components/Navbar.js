@@ -3,21 +3,26 @@ import { connect } from "react-redux"
 import { logout } from "../redux/auth/authActions"
 import { useDispatch } from "react-redux"
 import Head from "next/head"
+import Router from "next/router"
 
-function Navbar({ isAuthenticated }) {
+function Navbar({ isAuthenticated, user_id }) {
   const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    Router.push("/login")
+  }
 
   return (
     <>
       <Head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
         />
-        <meta name="description" content="Description" />
-        <meta name="keywords" content="Keywords" />
+
         <title>
           Developer Connector | Create Developer profile/portfolio, share posts
           and get help from other developers
@@ -111,8 +116,9 @@ function Navbar({ isAuthenticated }) {
       <nav className="navbar bg-dark">
         <h1>
           <Link href="/">
-            <a>
-              <i className="fas fa-code"></i> DevConnector
+            <a className="header-logo-box">
+              <img src="../images/logo.png" className="logo" />
+              <p style={{ padding: "0 10px" }}>DevConnector</p>
             </a>
           </Link>
         </h1>
@@ -143,18 +149,25 @@ function Navbar({ isAuthenticated }) {
                   <a>Posts</a>
                 </Link>
               </li>
+              {user_id ? (
+                <li>
+                  <Link href="/profile/[id]" as={`/profile/${user_id}`}>
+                    <a title="Profile">
+                      <i className="fas fa-user"></i>
+                      <span className="hide-sm"> Profile</span>
+                    </a>
+                  </Link>
+                </li>
+              ) : null}
               <li>
                 <Link href="/dashboard">
                   <a title="Dashboard">
-                    <i className="fas fa-user"></i>
-                    <span className="hide-sm">Dashboard</span>
+                    <i class="fas fa-user-cog"></i>
+                    <span className="hide-sm"> Dashboard</span>
                   </a>
                 </Link>
               </li>
-              <li
-                onClick={() => dispatch(logout())}
-                style={{ cursor: "pointer" }}
-              >
+              <li onClick={() => handleLogout()} style={{ cursor: "pointer" }}>
                 <a title="Logout">
                   <i className="fas fa-sign-out-alt"></i>
                   <span className="hide-sm">Logout</span>
@@ -175,6 +188,7 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
   return {
     isAuthenticated: state.auth.token !== null,
+    user_id: state.profiles.authUserId,
   }
 }
 

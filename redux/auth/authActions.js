@@ -1,6 +1,7 @@
 import { loginUser, registerUser, logoutUserAPI } from "../../api/authApi"
 import * as types from "./authTypes"
 import { apiCallError } from "../apiStatus/apiActions"
+import { loadUserProfile } from "../profile/profileActions"
 import Router from "next/router"
 
 export const authStart = () => {
@@ -26,32 +27,39 @@ export const authLogoutAction = () => {
 
 export const logout = () => {
   return function (dispatch) {
-    dispatch(authStart())
-    return logoutUserAPI()
-      .then((res) => {
-        localStorage.removeItem("token")
-        localStorage.removeItem("expirationDate")
-        localStorage.removeItem("email")
-        dispatch(authLogoutAction())
+    // dispatch(authStart())
+    localStorage.removeItem("token")
+    localStorage.removeItem("expirationDate")
+    localStorage.removeItem("email")
+    localStorage.removeItem("user_id")
+    dispatch(authLogoutAction())
+    // const register_link = process.env.WEB_APP_URL + "register"
+    // const login_link = process.env.WEB_APP_URL + "login"
+    // const WHITELIST_URLS = [register_link, login_link, process.env.WEB_APP_URL]
 
-        const register_link = process.env.WEB_APP_URL + "register"
+    // if (!WHITELIST_URLS.includes(window.location.href)) {
+    //   Router.push("/login")
+    // }
 
-        if (
-          !(
-            window.location.href !== process.env.WEB_APP_URL ||
-            window.location.href !== register_link
-          )
-        ) {
-          Router.push("/login")
-        }
-      })
-      .catch((error) => {
-        const error_msg = error.error_msg || error.message
+    // return logoutUserAPI()
+    // .then((res) => {
+    //   dispatch(authLogoutAction())
 
-        // dispatch(apiCallError(error))
-        dispatch(authFail(true, error_msg))
-        // throw error
-      })
+    //   // if (
+    //   //   !(
+    //   //     window.location.href !== process.env.WEB_APP_URL ||
+    //   //     window.location.href !== register_link
+    //   //   )
+    //   // ) {
+    //   // }
+    // })
+    // .catch((error) => {
+    //   const error_msg = error.error_msg || error.message
+
+    //   // dispatch(apiCallError(error))
+    //   dispatch(authFail(true, error_msg))
+    //   // throw error
+    // })
   }
 }
 
@@ -67,6 +75,8 @@ export const authLogin = (email, password) => {
         localStorage.setItem("email", email)
         dispatch(authSuccess(token, email))
         Router.push("/profiles")
+        const auth = true
+        dispatch(loadUserProfile(auth))
       })
       .catch((error) => {
         const error_msg = error.error_msg || error.message
@@ -86,7 +96,7 @@ export const authRegister = (
 ) => {
   return function (dispatch) {
     dispatch(authStart())
-    console.log({ first_name, last_name, email, password1, password2 })
+    // console.log({ first_name, last_name, email, password1, password2 })
 
     return registerUser(first_name, last_name, email, password1, password2)
       .then((res) => {
@@ -96,6 +106,8 @@ export const authRegister = (
         localStorage.setItem("expirationDate", expirationDate)
         // localStorage.setItem("email", email)
         dispatch(authSuccess(token))
+        const auth = true
+        dispatch(loadUserProfile(auth))
         Router.push("/edit-profile")
       })
       .catch((error) => {
@@ -118,6 +130,7 @@ export const checkAuthTimeout = (expirationTime) => {
 export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token")
+    const user_id = localStorage.getItem("user_id")
 
     if (token === undefined) {
       dispatch(logout())
@@ -127,6 +140,8 @@ export const authCheckState = () => {
         dispatch(logout())
       } else {
         dispatch(authSuccess(token))
+        const auth = true
+        dispatch(loadUserProfile(auth))
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000

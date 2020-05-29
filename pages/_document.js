@@ -17,6 +17,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Raleway"
             rel="stylesheet"
           ></link>
+          <meta httpEquiv="content-language" content="en"></meta>
         </Head>
         <body>
           <Main />
