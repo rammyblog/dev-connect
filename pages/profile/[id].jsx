@@ -1,6 +1,7 @@
 import Profile from "../../components/Profile"
 import { useRouter } from "next/router"
 import { PrivateRoute } from "../../utils/PrivateRoute"
+import DynamicTitle from "../../components/presentational/DynamicTitle"
 
 function profile() {
   const router = useRouter()
