@@ -5,12 +5,12 @@ function Home({ isAuthenticated }, props) {
   return (
     <>
       <section className="landing">
-        <div className="dark-overlay">
-          <div className="landing-inner">
+        <div className="homepage-header">
+          <div className="landing-inner" style={{ padding: "1rem" }}>
             <h1 className="x-large">Developer Connector</h1>
             <p className="lead">
               Create Developer profile/portfolio, share posts and get help from
-              other developers{" "}
+              other developers
             </p>
             <div className="buttons">
               {!isAuthenticated ? (
@@ -32,6 +32,11 @@ function Home({ isAuthenticated }, props) {
               )}
             </div>
           </div>
+          <object
+            className="img-fluid"
+            data="../images/connection.svg"
+            type=""
+          ></object>
         </div>
       </section>
     </>

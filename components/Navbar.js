@@ -4,7 +4,7 @@ import { logout } from "../redux/auth/authActions"
 import { useDispatch } from "react-redux"
 import Head from "next/head"
 
-function Navbar({ isAuthenticated }) {
+function Navbar({ isAuthenticated, user_id }) {
   const dispatch = useDispatch()
 
   return (
@@ -111,8 +111,9 @@ function Navbar({ isAuthenticated }) {
       <nav className="navbar bg-dark">
         <h1>
           <Link href="/">
-            <a>
-              <i className="fas fa-code"></i> DevConnector
+            <a className="header-logo-box">
+              <img src="../images/logo.png" className="logo" />
+              <p style={{ padding: "0 10px" }}>DevConnector</p>
             </a>
           </Link>
         </h1>
@@ -143,11 +144,21 @@ function Navbar({ isAuthenticated }) {
                   <a>Posts</a>
                 </Link>
               </li>
+              {user_id ? (
+                <li>
+                  <Link href="/profile/[id]" as={`/profile/${user_id}`}>
+                    <a title="Profile">
+                      <i className="fas fa-user"></i>
+                      <span className="hide-sm"> Profile</span>
+                    </a>
+                  </Link>
+                </li>
+              ) : null}
               <li>
                 <Link href="/dashboard">
                   <a title="Dashboard">
-                    <i className="fas fa-user"></i>
-                    <span className="hide-sm">Dashboard</span>
+                    <i class="fas fa-user-cog"></i>
+                    <span className="hide-sm"> Dashboard</span>
                   </a>
                 </Link>
               </li>
@@ -175,6 +186,7 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
   return {
     isAuthenticated: state.auth.token !== null,
+    user_id: state.profiles.authUserId !== null,
   }
 }
 

@@ -21,7 +21,6 @@ const ProfilesLoaded = (Component) => {
 
     const store = useStore()
     const currentState = store.getState()
-    console.log(currentState)
 
     const dispatch = useDispatch()
 

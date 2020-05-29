@@ -12,7 +12,7 @@ function Profiles({ profiles }) {
       <section className="container">
         {allProfiles.length > 0 && !loading ? (
           <>
-            <h1 className="large text-primary">Developer</h1>
+            <h1 className="large text-primary">Developers</h1>
 
             <p className="lead">
               <i className="fab fa-connectdevelop"></i> Browse and Connect with

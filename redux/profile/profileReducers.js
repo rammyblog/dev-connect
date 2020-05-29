@@ -6,6 +6,7 @@ const initialProfileState = {
   profiles: [],
   loading: false,
   userProfile: [],
+  authUserId: null,
 }
 
 export const profileReducer = (
@@ -23,6 +24,12 @@ export const profileReducer = (
         loading: false,
         userProfile: payload,
         ...state.userProfile,
+      }
+    case types.SET_AUTH_USER_PROFILE:
+      return {
+        ...state,
+        loading: false,
+        authUserId: payload,
       }
 
     case types.EDIT_PROFILE:

@@ -1,6 +1,7 @@
 import { loginUser, registerUser, logoutUserAPI } from "../../api/authApi"
 import * as types from "./authTypes"
 import { apiCallError } from "../apiStatus/apiActions"
+import { loadUserProfile } from "../profile/profileActions"
 import Router from "next/router"
 
 export const authStart = () => {
@@ -32,15 +33,17 @@ export const logout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("expirationDate")
         localStorage.removeItem("email")
+        localStorage.removeItem("user_id")
+
         dispatch(authLogoutAction())
 
         const register_link = process.env.WEB_APP_URL + "register"
+        // if (window.location.href !== register_link) {
+        // }
 
         if (
-          !(
-            window.location.href !== process.env.WEB_APP_URL ||
-            window.location.href !== register_link
-          )
+          window.location.href !== process.env.WEB_APP_URL &&
+          window.location.href !== register_link
         ) {
           Router.push("/login")
         }
@@ -66,6 +69,8 @@ export const authLogin = (email, password) => {
         localStorage.setItem("expirationDate", expirationDate)
         localStorage.setItem("email", email)
         dispatch(authSuccess(token, email))
+        const auth = true
+        dispatch(loadUserProfile(auth))
         Router.push("/profiles")
       })
       .catch((error) => {
@@ -96,6 +101,8 @@ export const authRegister = (
         localStorage.setItem("expirationDate", expirationDate)
         // localStorage.setItem("email", email)
         dispatch(authSuccess(token))
+        const auth = true
+        dispatch(loadUserProfile(auth))
         Router.push("/edit-profile")
       })
       .catch((error) => {
@@ -118,6 +125,7 @@ export const checkAuthTimeout = (expirationTime) => {
 export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token")
+    const user_id = localStorage.getItem("user_id")
 
     if (token === undefined) {
       dispatch(logout())
@@ -127,6 +135,10 @@ export const authCheckState = () => {
         dispatch(logout())
       } else {
         dispatch(authSuccess(token))
+        if (user_id === undefined) {
+          const auth = true
+          dispatch(loadUserProfile(auth))
+        }
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000
