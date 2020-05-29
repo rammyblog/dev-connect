@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "formik": "^2.1.4",
     "next": "latest",
+    "next-pwa": "^2.4.1",
     "nprogress": "^0.2.0",
     "react": "^16.9.0",
     "react-dnd": "^11.0.0",

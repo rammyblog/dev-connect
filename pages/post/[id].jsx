@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { PrivateRoute } from "../../utils/PrivateRoute"
 import PostDetail from "../../components/posts/PostDetail"
+import DynamicTitle from "../../components/presentational/DynamicTitle"
 
 function post() {
   const router = useRouter()
@@ -8,6 +9,7 @@ function post() {
 
   return (
     <>
+      <DynamicTitle title="Join the conversation" />
       <PostDetail id={post_id} />
     </>
   )

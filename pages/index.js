@@ -1,15 +1,13 @@
-import React, { Component } from "react"
-
 import Home from "../components/Home"
+import DynamicTitle from "../components/presentational/DynamicTitle"
 
-class Index extends Component {
-  render() {
-    return (
-      <>
-        <Home />
-      </>
-    )
-  }
+function Index() {
+  return (
+    <>
+      <DynamicTitle title="Welcome to DevConnectz" />
+      <Home />
+    </>
+  )
 }
 
 export default Index

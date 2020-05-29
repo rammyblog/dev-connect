@@ -1,11 +1,13 @@
 import PostListing from "../components/posts/PostListing"
 import { PrivateRoute } from "../utils/PrivateRoute"
+import DynamicTitle from "../components/presentational/DynamicTitle"
 
 function posts() {
   return (
-    <div>
+    <>
+      <DynamicTitle title="Join the Conversation" />
       <PostListing />
-    </div>
+    </>
   )
 }
 

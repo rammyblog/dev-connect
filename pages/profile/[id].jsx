@@ -8,6 +8,7 @@ function profile() {
 
   return (
     <>
+      <DynamicTitle title="Profile" />
       <Profile id={user_id} />
     </>
   )
