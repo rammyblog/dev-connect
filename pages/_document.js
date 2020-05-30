@@ -14,9 +14,9 @@ class MyDocument extends Document {
             crossOrigin="anonymous"
           ></script>
           <link
-            href="https://fonts.googleapis.com/css?family=Raleway"
+            href="https://fonts.googleapis.com/css2?family=Poppins"
             rel="stylesheet"
-          ></link>
+          />
           <meta httpEquiv="content-language" content="en"></meta>
         </Head>
         <body>

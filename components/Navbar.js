@@ -16,7 +16,9 @@ function Navbar({ isAuthenticated, user_id }) {
   return (
     <>
       <Head>
-        <meta charset="utf-8" />
+        <meta httpEquiv="content-language" content="en"></meta>
+
+        <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
@@ -118,7 +120,7 @@ function Navbar({ isAuthenticated, user_id }) {
           <Link href="/">
             <a className="header-logo-box">
               <img src="../images/logo.png" className="logo" />
-              <p style={{ padding: "0 10px", margin: 0 }}>DevConnector</p>
+              <p style={{ padding: "0 10px" }}>DevConnector</p>
             </a>
           </Link>
         </h1>
