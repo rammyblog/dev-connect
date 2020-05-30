@@ -16,7 +16,9 @@ function Navbar({ isAuthenticated, user_id }) {
   return (
     <>
       <Head>
-        <meta charset="utf-8" />
+        <meta httpEquiv="content-language" content="en"></meta>
+
+        <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"

@@ -2,6 +2,7 @@ import React from "react"
 import { Provider } from "react-redux"
 import App from "next/app"
 import withReduxStore from "../lib/with-redux-store"
+import "../styles/antPagination.css"
 import "../styles/styles.min.css"
 import Navbar from "../components/Navbar"
 import { authCheckState, logout } from "../redux/auth/authActions"
@@ -12,6 +13,7 @@ import ErrorPage from "./_error"
 import Router from "next/router"
 import Head from "next/head"
 import NProgress from "nprogress"
+import Footer from "../components/presentational/Footer"
 
 Router.events.on("routeChangeStart", (url) => {
   NProgress.start()
@@ -45,13 +47,14 @@ class MyApp extends App {
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
         <Navbar />
-        <div className="">
+        <div className="" style={{ minHeight: "100vh" }}>
           {this.props.api < 0 ? (
             <ErrorPage text={errorText} />
           ) : (
             <Component {...pageProps} />
           )}
         </div>
+        <Footer />
       </Provider>
     )
   }
