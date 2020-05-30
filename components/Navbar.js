@@ -118,7 +118,7 @@ function Navbar({ isAuthenticated, user_id }) {
           <Link href="/">
             <a className="header-logo-box">
               <img src="../images/logo.png" className="logo" />
-              <p style={{ padding: "0 10px" }}>DevConnector</p>
+              <p style={{ padding: "0 10px", margin: 0 }}>DevConnector</p>
             </a>
           </Link>
         </h1>
