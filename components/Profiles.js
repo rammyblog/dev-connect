@@ -15,8 +15,6 @@ function Profiles({ profiles }) {
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage
 
-  console.log(allProfiles.length)
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   const currentProfiles = allProfiles
     ? allProfiles.slice(indexOfFirstPost, indexOfLastPost)
@@ -84,6 +82,7 @@ function Profiles({ profiles }) {
                       // paginate={paginate}
                       onChange={paginate}
                       pageSize={postPerPage}
+                      showSizeChanger={false}
                     />
                   </div>
 

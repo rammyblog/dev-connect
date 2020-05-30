@@ -60,6 +60,7 @@ export function loadUserProfile(auth = null) {
           const id = profile.data[0].id
           localStorage.setItem("user_id", id)
           dispatch(setAuthUserId(id))
+          auth = null
         }
       })
       .catch((error) => {
