@@ -10,7 +10,7 @@ function Profiles({ profiles }) {
   const { profiles: allProfiles, loading } = profiles
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setPostsperPage] = useState(10)
+  const [postPerPage, setPostsperPage] = useState(2)
 
   const indexOfLastPost = currentPage * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage

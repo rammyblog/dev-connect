@@ -154,7 +154,7 @@ function Navbar({ isAuthenticated, user_id }) {
               {user_id ? (
                 <li>
                   <Link href="/profile/[id]" as={`/profile/${user_id}`}>
-                    <a title="Profile">
+                    <a href="/profile/[id]" title="Profile">
                       <i className="fas fa-user"></i>
                       <span className="hide-sm"> Profile</span>
                     </a>
