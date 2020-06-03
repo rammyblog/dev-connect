@@ -6,7 +6,7 @@ function Home({ isAuthenticated }, props) {
     <>
       <section className="landing">
         <div className="homepage-header">
-          <div className="landing-inner" style={{ padding: "1rem" }}>
+          <div className="landing-inner">
             <h1 className="x-large">Developer Connector</h1>
             <p className="lead">
               Create Developer profile/portfolio, share posts and get help from

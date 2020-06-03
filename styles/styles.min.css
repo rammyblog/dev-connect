@@ -722,4 +722,10 @@ img {
     width: 50%;
     margin: auto;
   }
+  .large {
+    font-size: 1.5rem;
+  }
+  .x-large {
+    font-size: 3rem;
+  }
 }
