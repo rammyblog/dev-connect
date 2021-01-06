@@ -10,7 +10,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
     "antd": "^4.2.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "formik": "^2.1.4",
     "next": "latest",
     "next-pwa": "^2.4.1",
